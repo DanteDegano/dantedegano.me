@@ -30,6 +30,11 @@ $scrollbar:#305473;
     to   { background-color:$orange;}
 }
 
+@keyframes hover-logo{
+    from { fill:#b6bfc7;}
+    to   { fill:$orange;}
+}
+
 @keyframes hover-btn-module4{
     from { background-color:$purple;}
     to { background-color: $orange; }

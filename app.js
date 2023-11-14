@@ -1,4 +1,6 @@
 const express =  require('express')
+const nodemailer = require('nodemailer');
+const bodyParser = require('body-parser');
 const session = require('express-session')
 const mongoose =  require('mongoose')
 const hbs = require("hbs")
@@ -102,6 +104,46 @@ const Producto = mongoose.model('Producto', {
     stock: Number,
     descripcion: String
 })
+
+// Configuración del body-parser para manejar datos de formularios
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// Ruta para manejar el formulario
+app.post('/enviar-correo', (req, res) => {
+  // Obtén los datos del formulario desde el cuerpo de la solicitud
+  const { nombre, email, mensaje } = req.body;
+
+  const ADMIN_MAIL = process.env.ADMIN_MAIL
+  const ADMIN_MAIL_PASS = process.env.ADMIN_MAIL_PASS
+
+  // Configuración de nodemailer
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: ADMIN_MAIL, // Reemplaza con tu dirección de correo
+      pass: ADMIN_MAIL_PASS // Reemplaza con tu contraseña
+    }
+  });
+
+  // Configuración del correo electrónico
+  const mailOptions = {
+    from: 'dantedegano@gmail.com', // Reemplaza con tu dirección de correo
+    to: 'dantedegano@gmail.com', // Reemplaza con la dirección del destinatario
+    subject: 'Tienes un nuevo pedido:',
+    text: `Nombre: ${nombre}\nCorreo: ${email}\nMensaje: ${mensaje}`
+  };
+
+  // Envía el correo electrónico
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return res.status(500).send(error.toString());
+    }
+    res.render('home')
+  });
+});
+
+
 
 //Endpoints:
 

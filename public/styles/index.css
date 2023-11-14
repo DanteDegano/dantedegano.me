@@ -30,6 +30,14 @@
     background-color: orange;
   }
 }
+@keyframes hover-logo {
+  from {
+    fill: #b6bfc7;
+  }
+  to {
+    fill: orange;
+  }
+}
 @keyframes hover-btn-module4 {
   from {
     background-color: #6e40c9;
@@ -275,6 +283,9 @@ body {
 }
 .header_wrp_left svg path {
   fill: #b6bfc7;
+}
+.header_wrp_left svg:hover path {
+  animation: hover-logo 0.5s forwards;
 }
 .header_wrp_login {
   width: 200px;

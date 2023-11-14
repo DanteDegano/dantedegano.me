@@ -67,6 +67,11 @@
             path{
                 fill: #b6bfc7;
             }
+            &:hover{
+                path{
+                    animation: hover-logo 0.5s forwards;
+                }
+            }
             }
         }
         &_login{
