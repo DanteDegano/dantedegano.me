@@ -4,6 +4,8 @@ const menu_wrp = document.getElementById('menu_wrp');
 const cross_menu = document.getElementById('cross_menu');
 const btn_menu = document.getElementById('btn_menu');
 const ul_menu = document.getElementById('ul_menu');
+const login = document.getElementById('login');
+const loginBody = document.getElementById('loginBody');
 
 
 burger.addEventListener('click', function(ev){
@@ -12,16 +14,18 @@ burger.addEventListener('click', function(ev){
     body.classList.add('no-scroll');
 })
 
+login.addEventListener('click', function(ev){
+    loginBody.classList.add('flex');
+})
+
+document.addEventListener('click', function(ev) {
+    if (!login.contains(ev.target)) {
+        loginBody.classList.remove('flex');
+    }
+});
+
 cross_menu.addEventListener('click', function(ev){
     menu_wrp.classList.remove('translatex');
     menu.classList.remove('open_menu');
     body.classList.remove('no-scroll');
 })
-
-/*
-btn_menu.addEventListener('click', function(ev){
-    ul_menu.classList.toggle('block');
-    btn_menu.classList.toggle('change_color_orange');
-    btn_menu.classList.toggle('border_radius_button_none');
-})
-*/

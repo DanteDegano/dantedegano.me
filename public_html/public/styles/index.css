@@ -284,18 +284,14 @@ body {
   padding: 8px;
   border: 2px solid #b6bfc7;
   border-radius: 10px;
-  height: 50px;
   overflow: hidden;
-}
-.header_wrp_login:hover {
-  height: auto;
+  cursor: pointer;
 }
 .header_wrp_login_top {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 5px;
-  margin-bottom: 10px;
 }
 .header_wrp_login_top p {
   color: #b6bfc7;
@@ -309,6 +305,9 @@ body {
 }
 .header_wrp_login_bottom {
   position: relative;
+  display: none;
+  flex-direction: column;
+  margin-top: 10px;
 }
 .header_wrp_login_bottom form {
   display: flex;

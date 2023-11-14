@@ -77,17 +77,13 @@
             padding: 8px;
             border: 2px solid #b6bfc7;
             border-radius: 10px;
-            height: 50px;
             overflow: hidden;
-            &:hover{
-                height: auto;
-            }
+            cursor: pointer;
             &_top{
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 gap: 5px;
-                margin-bottom: 10px;
                 p{
                     color: #b6bfc7;
                     font-size: 24px;
@@ -101,6 +97,9 @@
             }
             &_bottom{
                 position: relative;
+                display: none;
+                flex-direction: column;
+                margin-top: 10px;
                 form{
                     display: flex;
                     gap: 10px;

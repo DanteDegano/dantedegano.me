@@ -208,6 +208,7 @@ app.post('/delete-account', async (req, res) => {
         const usuarioExistente = await User.findOne({ username, password });
         if (usuarioExistente) {
             await User.deleteOne({ _id: usuarioExistente._id });
+            req.session.destroy()
             res.redirect('/');
         } else {
             res.render('delete-account', { error: 'Nombre de usuario o contraseña incorrectos' });
