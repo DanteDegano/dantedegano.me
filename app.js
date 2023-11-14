@@ -147,11 +147,11 @@ app.post('/home', async (req, res) => {
     }
 });
 
-// Example function to verify regular user password
 function verificarContraseñaForUser(inputPassword, storedPassword) {
     return inputPassword === storedPassword;
 }
 
+// Registra un nuevo usuario
 
 app.get('/register', (req, res) =>{
     res.render('register')
@@ -168,6 +168,8 @@ app.post('/register', async (req, res) =>{
         res.redirect('/home')
     }
 })
+
+// Cambia contraseña de usario ya existente (requiere de vieja contraseña)
 
 app.get('/change-password', (req, res) =>{
     res.render('change-password')
@@ -193,6 +195,30 @@ app.post('/change-password', async (req, res) => {
         res.render('change-password', { error: 'Nombre de usuario o contraseña actual incorrectos' });
     }
 });
+
+// Borra usuario de la base de datos
+
+app.get('/delete-account', (req, res) =>{
+    res.render('delete-account')
+})
+
+app.post('/delete-account', async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const usuarioExistente = await User.findOne({ username, password });
+        if (usuarioExistente) {
+            await User.deleteOne({ _id: usuarioExistente._id });
+            res.redirect('/');
+        } else {
+            res.render('delete-account', { error: 'Nombre de usuario o contraseña incorrectos' });
+        }
+    } catch (error) {
+        console.error('Error al intentar eliminar la cuenta:', error);
+        res.render('delete-account', { error: 'Error al intentar eliminar la cuenta. Por favor, inténtalo de nuevo más tarde.' });
+    }
+});
+
+
 
 
 
