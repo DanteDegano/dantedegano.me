@@ -1,0 +1,41 @@
+.module_cookies{
+    display: none;
+    position: fixed;
+    top: 0px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    backdrop-filter: blur(10px);
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+    &_card{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 500px;
+        height: 300px;
+        background-color: white;
+        padding: 60px 30px 30px;
+        border-radius: 10px;
+        gap: 60px 0;
+        h2{
+            text-align: center;
+            font-weight: 500;
+        }
+        button{
+            height: 50px;
+            border-radius: 30px;
+            border: none;
+            background-color: $purple ;
+            color: white;
+            font-size: 24px;
+            font-weight: 500;
+            cursor: pointer;
+            &:hover{
+                animation: hover-btn-cookies 0.5s forwards;
+            }
+        }
+    }
+
+}

@@ -1,0 +1,372 @@
+.module_6{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    height: 620px;
+    margin: 100px 0;
+    overflow: hidden;
+    &_wrp{
+        width: 100%;
+        height: 100%;
+        max-width: 1250px;
+        padding: 0 20px;
+        h2{
+            color: $purple;
+            font-size: 48px;
+            margin-bottom: 50px;
+        }
+        &_progress{
+            width: 100%;
+            height: 12px;
+            position: absolute;
+            top: calc(50% - 6px);
+            border-radius: 6px;
+            background: #ff3232; /* Old browsers */
+            background: -moz-linear-gradient(left, #ff3232 0%, #ffe389 16%, #95ff89 33%, #89fffb 51%, #8991ff 67%, #ff89ef 83%, #ff898b 98%);
+            background: -webkit-linear-gradient(left, #ff3232 0%,#ffe389 16%,#95ff89 33%,#89fffb 51%,#8991ff 67%,#ff89ef 83%,#ff898b 98%);
+            background: linear-gradient(to right, #ff3232 0%,#ffe389 16%,#95ff89 33%,#89fffb 51%,#8991ff 67%,#ff89ef 83%,#ff898b 98%);
+            &_wrp{
+                position: relative;
+                width: 100%;
+                height: 100%;
+                &_circle{
+                    width: 40px;
+                    height: 40px;
+                    position: absolute;
+                    top: calc(50% - 20px);
+                    left: 0;
+                    background-color: #FF3232;
+                    border-radius: 20px;
+                    border: 4px solid #30363c;
+                    animation: chroma-transition 10s linear;
+                    animation-fill-mode: forwards;
+                }
+                &_point1{
+                    width: 20px;
+                    height: 20px;
+                    position: absolute;
+                    top: calc(50% - 10px);
+                    left: 12.5%;
+                    background-color: #30363c;
+                    border-radius: 20px;
+                    opacity: 0;
+                    animation: appear 2s linear forwards;
+                    animation-delay: 1s;
+                    padding: 2px;
+                    p{
+                        color: white;
+                        font-size: 12px;
+                        font-weight: 800;
+                        text-align: center;
+                    }
+                    &::after{
+                        content: '';
+                        width: 2px;
+                        height: 85px;
+                        background-color: #30363c;
+                        position: absolute;
+                        left: 50%;
+                    }
+                }
+                &_point2{
+                    width: 20px;
+                    height: 20px;
+                    position: absolute;
+                    top: calc(50% - 10px);
+                    left: 23%;
+                    background-color: #30363c;
+                    border-radius: 20px;
+                    opacity: 0;
+                    animation: appear 2s linear forwards;
+                    animation-delay: 2s;
+                    padding: 2px;
+                    p{
+                        color: white;
+                        font-size: 12px;
+                        font-weight: 800;
+                        text-align: center;
+                    }
+                    &::before{
+                        content: '';
+                        width: 2px;
+                        height: 100px;
+                        background-color: #30363c;
+                        position: absolute;
+                        left: 50%;
+                        bottom: 0;
+                        z-index: -1;
+                    }
+                }
+                &_point3{
+                    width: 20px;
+                    height: 20px;
+                    position: absolute;
+                    top: calc(50% - 10px);
+                    left: 37%;
+                    background-color: #30363c;
+                    border-radius: 20px;
+                    opacity: 0;
+                    animation: appear 2s linear forwards;
+                    animation-delay: 3.5s;
+                    padding: 2px;
+                    p{
+                        color: white;
+                        font-size: 12px;
+                        font-weight: 800;
+                        text-align: center;
+                    }
+                    &::after{
+                        content: '';
+                        width: 2px;
+                        height: 85px;
+                        background-color: #30363c;
+                        position: absolute;
+                        left: 50%;
+                    }
+                }
+                &_point4{
+                    width: 20px;
+                    height: 20px;
+                    position: absolute;
+                    top: calc(50% - 10px);
+                    left: 49%;
+                    background-color: #30363c;
+                    border-radius: 20px;
+                    opacity: 0;
+                    animation: appear 2s linear forwards;
+                    animation-delay: 4.5s;
+                    padding: 2px;
+                    p{
+                        color: white;
+                        font-size: 12px;
+                        font-weight: 800;
+                        text-align: center;
+                    }
+                    &::before{
+                        content: '';
+                        width: 2px;
+                        height: 100px;
+                        background-color: #30363c;
+                        position: absolute;
+                        left: 50%;
+                        bottom: 0;
+                        z-index: -1;
+                    }
+                }
+                &_point5{
+                    width: 20px;
+                    height: 20px;
+                    position: absolute;
+                    top: calc(50% - 10px);
+                    left: 61%;
+                    background-color: #30363c;
+                    border-radius: 20px;
+                    opacity: 0;
+                    animation: appear 2s linear forwards;
+                    animation-delay: 6s;
+                    padding: 2px;
+                    p{
+                        color: white;
+                        font-size: 12px;
+                        font-weight: 800;
+                        text-align: center;
+                    }
+                    &::after{
+                        content: '';
+                        width: 2px;
+                        height: 85px;
+                        background-color: #30363c;
+                        position: absolute;
+                        left: 50%;
+                    }
+                }
+                &_point6{
+                    width: 20px;
+                    height: 20px;
+                    position: absolute;
+                    top: calc(50% - 10px);
+                    left: 75%;
+                    background-color: #30363c;
+                    border-radius: 20px;
+                    opacity: 0;
+                    animation: appear 2s linear forwards;
+                    animation-delay: 7s;
+                    padding: 2px;
+                    p{
+                        color: white;
+                        font-size: 12px;
+                        font-weight: 800;
+                        text-align: center;
+                    }
+                    &::before{
+                        content: '';
+                        width: 2px;
+                        height: 100px;
+                        background-color: #30363c;
+                        position: absolute;
+                        left: 50%;
+                        bottom: 0;
+                        z-index: -1;
+                    }
+                }
+                &_point7{
+                    width: 20px;
+                    height: 20px;
+                    position: absolute;
+                    top: calc(50% - 10px);
+                    left: 86%;
+                    background-color: #30363c;
+                    border-radius: 20px;
+                    opacity: 0;
+                    animation: appear 2s linear forwards;
+                    animation-delay: 8s;
+                    padding: 2px;
+                    p{
+                        color: white;
+                        font-size: 12px;
+                        font-weight: 800;
+                        text-align: center;
+                    }
+                    &::after{
+                        content: '';
+                        width: 2px;
+                        height: 85px;
+                        background-color: #30363c;
+                        position: absolute;
+                        left: 50%;
+                    }
+                }
+            }
+        }
+        &_cards{
+            position: relative;
+            width: 100%;
+            height: 500px;
+            display: flex;
+            &_card{
+                position: absolute;
+                background-color: #161B22;
+                border-radius: 4px;
+                padding: 20px 10px;
+                width: 200px;
+                height: 160px;
+                cursor: pointer;
+                border: 2px solid #30363c;
+                h2{
+                    color: $orange;
+                    font-size: 18px;
+                    font-weight: 700;
+                    margin-bottom: 10px;
+                    text-decoration: underline;
+                    text-align: center;
+                }
+                p{
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: #b6bfc7;
+                    text-align: center;
+                }
+                &:first-child{
+                    opacity: 0;
+                    bottom: 0;
+                    left: 5%;
+                    animation: appear 2s linear forwards;
+                    animation-delay: 1s;
+                }
+                &:nth-child(2){
+                    opacity: 0;
+                    top: 0;
+                    left: calc(24% - 100px);
+                    animation: appear 2s linear forwards;
+                    animation-delay: 2s;
+                }
+                &:nth-child(3){
+                    opacity: 0;
+                    bottom: 0;
+                    left: calc(38% - 100px);
+                    animation: appear 2s linear forwards;
+                    animation-delay: 3.5s;
+                }
+                &:nth-child(4){
+                    opacity: 0;
+                    top: 0;
+                    left: calc(50% - 100px);
+                    animation: appear 2s linear forwards;
+                    animation-delay: 4.5s;
+                }
+                &:nth-child(6){
+                    opacity: 0;
+                    bottom: 0;
+                    right: calc(38% - 100px);
+                    animation: appear 2s linear forwards;
+                    animation-delay: 6s;
+                }
+                &:nth-child(7){
+                    opacity: 0;
+                    top: 0;
+                    right: calc(24% - 100px);
+                    animation: appear 2s linear forwards;
+                    animation-delay: 7s;
+                }
+                &:nth-child(8){
+                    opacity: 0;
+                    bottom: 0;
+                    right: 5%;
+                    animation: appear 2s linear forwards;
+                    animation-delay: 8s;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1024px){
+
+.module_6{
+    height: auto;
+    margin-bottom: 50px;
+    &_wrp{
+        &_cards{
+            display: block;
+            padding-top: 30px;
+            height: auto;
+            &_card{
+                position: revert;
+                padding: 10px;
+                display: block;
+                width: 100%;
+                height: auto;
+                margin: 20px 0;
+            }              
+        }
+        &_progress{
+            top: 0;
+            &_wrp{
+                &_point1{
+                    display: none;
+                }
+                &_point2{
+                    display: none;
+                }               
+                &_point3{
+                    display: none;
+                }                
+                &_point4{
+                    display: none;
+                }
+                &_point5{
+                    display: none;
+                }
+                &_point6{
+                    display: none;
+                }               
+                &_point7{
+                    display: none;
+                }  
+            }
+        }
+    }
+}
+
+}

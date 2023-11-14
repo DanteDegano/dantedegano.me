@@ -1,0 +1,80 @@
+.module_3{
+    padding: 0px 20px 100px;
+    position: relative;
+    overflow: hidden;
+    &_wrp{
+        max-width: 1250px;
+        width: 100%;
+        margin: 0 auto;
+        h2{
+            color: $purple;
+            font-size: 48px;
+        }
+        &_icons{
+            display: flex;
+            gap: 30px 90px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 900px;
+            margin: 50px auto 0;
+            &_icon{
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                width: 100px;
+                
+                svg{
+                    width: 70px;
+                    height: 100px;
+                    fill: #b6bfc7!important;
+                }
+                p{
+                    text-align: center;
+                    font-size: 26px;
+                    text-transform: uppercase;
+                    color: white;
+                    font-weight: 600;
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+    &_dec{
+        position: absolute;
+        bottom: -270px;
+        z-index: 0;
+        &_2{
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            right: 0;
+            opacity: .17;
+            z-index: 0;
+            width: 100%;
+        }
+        &_3{
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            opacity: .22;
+            z-index: 0;
+            width: 100%;
+        }
+    }
+}
+@media only screen and (max-width: 1024px){
+    .module_3{
+        padding: 0 20px;
+        padding-bottom: 50px;
+        &_dec{
+            &_2{
+                bottom: -22px;
+            }
+            &_3{
+                bottom: -22px;
+            }
+        }
+    }
+}

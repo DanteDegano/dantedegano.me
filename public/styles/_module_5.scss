@@ -1,0 +1,27 @@
+.module_5{
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 100px;
+    z-index: 5;
+    h2{
+        max-width: 1250px;
+        margin: 0 auto;
+        padding: 0px;
+        color: $purple;
+        font-size: 48px;
+    }
+}
+
+@media only screen and (max-width: 1290px){
+    .module_5{
+        h2{
+            padding: 0 20px;
+        }
+    }
+}
+
+@media only screen and (max-width: 1024px){
+    .module_5{
+        padding-bottom: 0;
+    }
+}

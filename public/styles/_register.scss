@@ -1,0 +1,134 @@
+body{
+    height: 100vh;
+}
+.formulario{
+    background-color: $black-git;
+    border: 2px solid $black2-git;
+    max-width: 800px;
+    width: 100%;
+    height: 600px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    padding: 20px;
+    &_wrp{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background-color: #0D1117;
+        border: 2px solid $black2-git;
+        height: 100%;
+        padding: 20px;
+        position: relative;
+        &_logo{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 50px;
+            margin: auto;
+            height: 300px;
+            width: 300px;
+            path{
+                fill: $black-git;
+            }
+        }
+            &_input{
+                margin-bottom: 30px;
+                width: 100%;
+                &_submit{
+                    height: 50px;
+                    width: 50%;
+                    font-size: 28px;
+                    background-color: $purple;
+                    color: white;
+                    font-weight: 600;
+                    cursor: pointer;
+                    &:hover{
+                        animation: hover-btn-module1 0.5s forwards;
+                    }
+                }
+                label{
+                    color: #b6bfc7;
+                    font-size: 28px;
+                    font-weight: 600;
+                    text-transform: capitalize;
+                }
+                input{
+                    width: 50%;
+                    height: 40px;
+                    font-size: 28px;
+                    font-weight: 500;
+                    padding: 0 10px;
+                }
+            }
+        &_links{
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            gap: 50px;
+            span{
+                color: #b6bfc7;
+                font-size: 18px;
+                font-weight: 600;
+            }
+            a{
+                font-size: 18px;
+                color: $purple;
+                text-decoration: none;
+                font-weight: 600;
+                &:hover{
+                    color: $orange;
+                }
+            }
+        }
+        &_titulo{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            h1{
+                color: $purple;
+                font-size: 24px;
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+            &_line{
+                width: 100%;
+                margin-top: 4px;
+                border-bottom: 2px solid $purple;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1024px){
+    .formulario{
+        height: auto;
+        &_wrp{
+            &_logo{
+                display: none;
+            }
+            &_input{
+                input{
+                    width: 100%;
+                }
+                &_submit{
+                    width: 100%;
+                    border-radius: 5px;
+                }
+            }
+            &_links{
+                flex-direction: column;
+                gap: 20px;
+                bottom: 50px;
+                a{
+                    display: block;
+                }
+            }
+        }
+    }
+}

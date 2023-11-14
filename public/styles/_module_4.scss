@@ -1,0 +1,113 @@
+.module_4{
+    height: 700px;
+    padding: 0 20px;
+    width: 100%;
+    position: relative;
+    h2{
+        color: $purple;
+        font-size: 48px;
+    }
+    &_wrp{
+        max-width: 1250px;
+        width: 100%;
+        margin: 0 auto;
+    }
+    & .contact_form{
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
+        padding-bottom: 50px;
+        .generic_btn_wrp_end{
+            display: flex;
+            justify-content: flex-end;
+            .generic_btn{
+                background-color: $purple;
+                color: #b6bfc7;
+                font-weight: 600;
+                font-size: 24px;
+                width: 100%;
+                cursor: pointer;
+                &:hover{
+                    animation: hover-btn-module4 0.5s forwards;
+                    color: white;
+                }
+            }
+        }
+        form{
+            gap: 0 50px;
+            position: relative;
+            width: 100%;
+        }
+        label{
+            color: #b6bfc7;
+            font-size: 20px;
+            font-weight: 600;
+            font-size: 24px;
+        }
+        input{
+            width: 100%;
+            height: 40px;
+            border-radius: 10px;
+            border: none;
+            padding: 0 20px;
+            font-size: 20px;
+            margin-top: 10px;
+            background-color: $black-git;
+            border: 2px solid $black2-git;
+            color: #b6bfc7;
+        }
+        textarea{
+            height: 200px;
+            width: 100%;
+            border-radius: 10px;
+            padding: 30PX;
+            font-size: 20px;
+            margin-top: 10px;
+            border: none;
+            margin-bottom: 30px;
+            background-color: $black-git;
+            border: 2px solid $black2-git;
+            color: #b6bfc7;
+        }
+        .error_txt{
+         display: none;   
+        }
+    }
+    & .contact_form_right{
+        display: flex;
+        gap: 30px;
+        margin-bottom: 30px;
+        .contact_form_right_mail, .contact_form_right_name{
+            display: flex;
+            flex-direction: column;
+        }
+        .contact_form_label_error{
+            display: none;
+        }
+        &_contact{
+            width: 100%;
+        }
+    }
+    & .contact_form_left{
+        display: flex;
+        flex-direction: column;
+    }
+
+}
+
+@media only screen and (max-width: 1024px){
+    .module_4{
+        & .contact_form_right{
+            flex-direction: column;
+            input{
+                width: 100%;
+                max-width: 800px;
+            }
+        }
+        & .contact_form{
+            .generic_btn_wrp_end{
+                justify-content: center;
+            }
+        }
+    }
+}
