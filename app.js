@@ -3,18 +3,29 @@ const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const session = require('express-session')
 const mongoose =  require('mongoose')
+const crypto = require('crypto');
 const hbs = require("hbs")
 const dotenv = require('dotenv')
 const bcrypt = require('bcrypt')
 dotenv.config()
 
+  const ADMIN_MAIL = process.env.ADMIN_MAIL
+  const ADMIN_MAIL_PASS = process.env.ADMIN_MAIL_PASS
+
+  // Configuración de nodemailer
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: ADMIN_MAIL,
+      pass: ADMIN_MAIL_PASS,
+    }
+  });
 
 const app = express()
 
 //Middleweres
 
 app.use(express.static(__dirname + '/public'))
-app.use(express.urlencoded({extended: true}))
 
 const session_params ={
     secret: 'keySecret',
@@ -93,17 +104,14 @@ database.once('open', () =>{
     console.log('Conectado a MongoDB')
 })
 
+
 const User = mongoose.model('User', {
     username: String, 
-    password: String
-})
-
-const Producto = mongoose.model('Producto', {
-    precio: Number, 
-    nombre: String,
-    stock: Number,
-    descripcion: String
-})
+    password: String,
+    email: String,
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
+});
 
 
 // Configuración del body-parser para manejar datos de formularios
@@ -116,17 +124,7 @@ app.post('/enviar-correo', (req, res) => {
   // Obtén los datos del formulario desde el cuerpo de la solicitud
   const { nombre, email, mensaje } = req.body;
 
-  const ADMIN_MAIL = process.env.ADMIN_MAIL
-  const ADMIN_MAIL_PASS = process.env.ADMIN_MAIL_PASS
 
-  // Configuración de nodemailer
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: ADMIN_MAIL, // Reemplaza con tu dirección de correo
-      pass: ADMIN_MAIL_PASS // Reemplaza con tu contraseña
-    }
-  });
 
   // Configuración del correo electrónico
   const mailOptions = {
@@ -200,43 +198,102 @@ app.get('/register', (req, res) =>{
 })
 
 app.post('/register', async (req, res) =>{
-    const {username, password} = req.body
+    const {username, password, email} = req.body
     const usuarioExistente =  await User.findOne({username})
     if(usuarioExistente){
         res.render('register', {error: 'El nombre de usuario ya esta siendo utilizado'})
     }else{
-        const newUser = new User({username, password})
+        const newUser = new User({username, password, email})
         await newUser.save()
         res.redirect('/home')
     }
 })
 
-// Cambia contraseña de usario ya existente (requiere de vieja contraseña)
 
-app.get('/change-password', (req, res) =>{
-    res.render('change-password')
-})
+
+// Cambia contraseña de usario ya existente
+
+app.use(express.urlencoded({ extended: true }));
+
+// Set up nodemailer transporter (replace with your email configuration)
+
+app.get('/change-password', (req, res) => {
+    res.render('change-password');
+});
 
 app.post('/change-password', async (req, res) => {
-    const { username, oldPassword, newPassword } = req.body;
+    const { username, email } = req.body;
 
-    // Busca el usuario por nombre de usuario y contraseña actual
-    const usuarioExistente = await User.findOne({ username, password: oldPassword });
+    // Generate a unique token
+    const token = crypto.randomBytes(20).toString('hex');
 
-    if (usuarioExistente) {
-        // Borra la contraseña anterior del usuario encontrado
-        usuarioExistente.password = undefined; // O establece un valor seguro, por ejemplo, null
+    const user = await User.findOneAndUpdate(
+        { username, email },
+        { resetPasswordToken: token, resetPasswordExpires: Date.now() + 3600000 }
+    );
+    
 
-        // Cambia la contraseña del usuario encontrado
-        usuarioExistente.password = newPassword;
-        
-        await usuarioExistente.save();
-        // Redirige al usuario a la página luego del cambio de contraseña
-        res.redirect('/'); 
+    if (user) {
+        // Send an email with the token
+        const resetLink = `http://localhost:${PORT}/reset-password?token=${token}`;
+
+        // Use nodemailer to send an email with the resetLink to the user's email address
+        transporter.sendMail({
+            to: user.email,
+            subject: 'Password Reset',
+            html: `Click <a href="${resetLink}">here</a> to reset your password.`,
+        });
+
+        res.render('change-password', { message: 'A password reset link has been sent to your email.' });
     } else {
-        res.render('change-password', { error: 'Nombre de usuario o contraseña actual incorrectos' });
+        res.render('change-password', { error: 'Invalid username or email.' });
     }
 });
+
+// Add a route to handle the password reset link with the token
+app.get('/reset-password', async (req, res) => {
+    const { token } = req.query;
+
+    // Find the user by the reset token and check if it's still valid
+    const user = await User.findOne({
+        resetPasswordToken: token,
+        resetPasswordExpires: { $gt: Date.now() },
+    });
+    
+
+    if (user) {
+        // Render a page where the user can enter a new password
+        res.render('reset-password', { token });
+    } else {
+        res.render('reset-password', { error: 'Invalid or expired token. Please try again.' });
+    }
+});
+
+// Add a route to handle the submission of the new password
+app.post('/reset-password', async (req, res) => {
+    const { token, newPassword } = req.body;
+
+    // Find the user by the reset token and check if it's still valid
+    const user = await User.findOne({
+        resetPasswordToken: token,
+        resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (user) {
+        // Update the user's password and clear the reset token fields
+        user.password = newPassword;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpires = undefined;
+
+        await user.save();
+
+        res.render('/', { message: 'Your password has been successfully reset. You can now log in with your new password.' });
+    } else {
+        res.render('reset-password', { error: 'Invalid or expired token. Please try again.' });
+    }
+});
+
+
 
 // Borra usuario de la base de datos
 
