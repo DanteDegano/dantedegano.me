@@ -35,35 +35,36 @@ body{
                 fill: $black-git;
             }
         }
-            &_input{
-                margin-bottom: 30px;
-                width: 100%;
-                &_submit{
-                    height: 50px;
-                    width: 50%;
-                    font-size: 28px;
-                    background-color: $purple;
-                    color: white;
-                    font-weight: 600;
-                    cursor: pointer;
-                    &:hover{
-                        animation: hover-btn-module1 0.5s forwards;
-                    }
-                }
-                label{
-                    color: #b6bfc7;
-                    font-size: 28px;
-                    font-weight: 600;
-                    text-transform: capitalize;
-                }
-                input{
-                    width: 50%;
-                    height: 40px;
-                    font-size: 28px;
-                    font-weight: 500;
-                    padding: 0 10px;
+        &_input{
+            margin-bottom: 30px;
+            width: 100%;
+            &_submit{
+                height: 50px;
+                width: 50%;
+                font-size: 28px;
+                background-color: $purple;
+                color: white;
+                font-weight: 600;
+                cursor: pointer;
+                border-radius: 5px;
+                &:hover{
+                    animation: hover-btn-module1 0.5s forwards;
                 }
             }
+            label{
+                color: #b6bfc7;
+                font-size: 28px;
+                font-weight: 600;
+                text-transform: capitalize;
+            }
+            input{
+                width: 50%;
+                height: 40px;
+                font-size: 28px;
+                font-weight: 500;
+                padding: 0 10px;
+            }
+        }
         &_links{
             position: absolute;
             bottom: 20px;

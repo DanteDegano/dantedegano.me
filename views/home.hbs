@@ -85,8 +85,10 @@
                         <h4 style="color: white; font-size: 32px">Eres el administrador de esta pagina.</h4>
                     {{else}}
                         {{#if isUser}}
-                            <a href="/delete-account">¿Desea borrar su usuario?</a>
-                            <a href="/change-password">¿Desea cambiar su contraseña?</a>
+                            <h3>Bienvenido {{user.username}}</h3>
+                            <a href="/change-password">Cambiar su contraseña</a>
+                            <a href="/change-password">Cerrar sesion</a>
+                            <a href="/delete-account">Borrar session</a>
                             {{else}}
                             <section id="loginMenu"class="header_wrp_login">
                                 <div class="header_wrp_login_top">
@@ -122,7 +124,7 @@
             <div class="module_1_wrp"> 
                 <h1>Full stack developer</h1>
                 <h2>¿Tenés un emprendimiento?</h2>
-                <h2>Crea tu sitio web desde 0</h2>
+                <h2>Creemos tu sitio web desde 0</h2>
                 <a class="module_1_contacto" href="https://wa.me/+541132850072" alt="phone">Contáctame</a>
             </div>
         </section>
