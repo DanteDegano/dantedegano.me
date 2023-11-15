@@ -7,7 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="/styles/index.css">
-
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        window.dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'GTM-PLM5B2M');
+    </script>
 </head>
 
 <body id="body">
@@ -28,7 +36,9 @@
                 <li><a href="#5">Metodologia</a></li>
                 <li><a href="#2">Conocimientos</a></li>
                 <li><a href="#3">Clientes</a></li>
+                {{#if isUser}}
                 <li><a href="#4">Contacto</a></li>
+                {{/if}}
 {{#if isAdmin}}
     <div class="header_wrp_login_iniciado">
         <h4 style="color: white;">Bienvenido {{user.username}}</h4>

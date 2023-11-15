@@ -35,9 +35,17 @@ Create: Puedo crear nuevos usuarios.
 Read: Se utiliza para iniciar sesion desde la misma Home.
 Update: Puedo cambiar contraseña de usuarios existentes, manda un mail a tu correo y generando un token podes cambiar la contraseña.
 Delete: Podes borrar un usario dentro del menu mobile cuando ya estes logeado.
+...................................................................................................................................................
 
-El formulario funciona con nodemailer.
+El formulario funciona con nodemailer. Manda al mail el pedido y tmb lo guarda en una base de datos.
 
+(Hay 3 tipos de usuarios: El usuario registrado, el no registrado y el Admin)
 
-(Hay dos tipos de usuarios: El usuario convencional y el Admin)
+El usuario no registrado no puede mandar formulario pero si puede contactarse por whatsApp (Obteniendo su telefono)
+El usuario Registrado puede contactarse por whatsApp y tmb puede enviar el formulario. (Obteniendo mail y telefono aunque borre el user)
+El admin por ahora no puede hacer nada, pero en un futuro va a tener una seccion donde van a cargar los pedidos como si fuesen tickets. 
+
+...................................................................................................................................................
+
+El back esta realizado con Node.js y el Front con HBS. 
 
