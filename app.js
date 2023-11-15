@@ -43,7 +43,7 @@ app.set('views', __dirname + '/views')
 //MongoDB/Mongoose config 
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD
-const DB_NAME = 'eCommerceUTN_Noche_LM'
+const DB_NAME = 'myNoSql'
 
 let original_password = process.env.ADMIN_PASSWORD
 
@@ -72,7 +72,6 @@ const verificarContraseña = async (password) =>{ //REVISAR
     await bcrypt.compare(password, hashedPassword, (err, result) =>{
         if(err){
             isCorrect = false
-            console.log('hola')
         }
         else if(result){
             isCorrect = true
@@ -111,6 +110,15 @@ const User = mongoose.model('User', {
     resetPasswordExpires: Date,
 });
 
+const pedidoSchema = new mongoose.Schema({
+    nombre: String,
+    email: String,
+    mensaje: String
+});
+
+// Crea el modelo para la colección "pedidos"
+const Pedido = mongoose.model('Pedido', pedidoSchema);
+
 
 // Configuración del body-parser para manejar datos de formularios
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -118,29 +126,37 @@ app.use(bodyParser.json());
 
 
 // Ruta para manejar el formulario
-app.post('/enviar-correo', (req, res) => {
+app.post('/enviar-correo', async (req, res) => {
   // Obtén los datos del formulario desde el cuerpo de la solicitud
   const { nombre, email, mensaje } = req.body;
 
-
-
   // Configuración del correo electrónico
   const mailOptions = {
-    from: 'dantedegano@gmail.com', // Reemplaza con tu dirección de correo
+    from: 'noreply@gmail.com', // Reemplaza con tu dirección de correo
     to: 'dantedegano@gmail.com', // Reemplaza con la dirección del destinatario
     subject: 'Tienes un nuevo pedido:',
     text: `Nombre: ${nombre}\nCorreo: ${email}\nMensaje: ${mensaje}`
   };
 
   // Envía el correo electrónico
-  transporter.sendMail(mailOptions, (error, info) => {
+  transporter.sendMail(mailOptions, async (error, info) => {
     if (error) {
       return res.status(500).send(error.toString());
     }
-    res.render('home')
+
+    // Guarda la información del pedido en la colección "pedidos"
+    try {
+      const nuevoPedido = new Pedido({ nombre, email, mensaje });
+      await nuevoPedido.save();
+      console.log('Pedido guardado en la base de datos');
+    } catch (error) {
+      console.error('Error al guardar el pedido en la base de datos:', error);
+      return res.status(500).send(error.toString());
+    }
+
+    res.render('home');
   });
 });
-
 
 //Endpoints:
 
@@ -211,7 +227,6 @@ app.post('/register', async (req, res) =>{
 // Cambia contraseña de usario ya existente
 
 app.use(express.urlencoded({ extended: true }));
-
 
 app.get('/change-password', (req, res) => {
     res.render('change-password');
@@ -311,7 +326,6 @@ app.post('/delete-account', isAuthenticated, async (req, res) => {
         res.render('delete-account', { error: 'Error al intentar eliminar la cuenta. Por favor, inténtalo de nuevo más tarde.' });
     }
 });
-
 
 
 app.get('/logout', (req, res) =>{
