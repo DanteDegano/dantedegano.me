@@ -62,7 +62,7 @@
                 </svg>
             </div>
             <div id="loginBody" class="header_wrp_login_bottom">
-                <form action="/home" method="POST">
+                <form action="/" method="POST">
                     <input name="username" id="username" type="text" placeholder="Usuario" required/>
                     <input type="password" id="password" name="password" placeholder="Contraseña" required/> 
                     {{#if error}}
@@ -97,7 +97,7 @@
                         {{#if isUser}}
                             <h3>Bienvenido {{user.username}}</h3>
                             <a href="/change-password">Cambiar su contraseña</a>
-                            <a href="/change-password">Cerrar sesion</a>
+                            <a href="/loguot">Cerrar sesion</a>
                             <a href="/delete-account">Borrar session</a>
                             {{else}}
                             <section id="loginMenu"class="header_wrp_login">
@@ -110,7 +110,7 @@
                                         </svg>
                                 </div>
                                 <div id="loginMenuBottom" class="header_wrp_login_bottom">
-                                    <form action="/home" method="POST">
+                                    <form action="/" method="POST">
                                         <input name="username" id="username" type="text" placeholder="Usuario" required/>
                                         <input type="password" id="password" name="password" placeholder="Contraseña" required/> 
                                     {{#if error}}
@@ -380,6 +380,27 @@
         </section>
         {{/if}}
 
+
+        {{#if isAdmin}}
+            <section class="module_7">
+                <h2>Listado de Pedidos</h2>
+
+                {{#if pedido.length}}
+                    <ul>
+                        {{#each pedido}}
+                            <li>
+                                <strong>Nombre:</strong> {{nombre}}<br>
+                                <strong>Email:</strong> {{email}}<br>
+                                <strong>Mensaje:</strong> {{mensaje}}
+                            </li>
+                        {{/each}}
+                    </ul>
+                {{else}}
+                    <p>No hay pedidos en este momento.</p>
+                {{/if}}
+            </section>
+        {{/if}}
+
         <section class="cat_wrp">
             <a href="https://github.com/DanteDegano" target="_blank">
                 <div class="cat" id="cat">
@@ -401,6 +422,7 @@
             </a>
             <h2 class="question" id="question">GitHub</h2>
         </section>
+
         <section class="module_cookies" id="cookies">
             <div class="module_cookies_wrp">
                 <div class="module_cookies_card">

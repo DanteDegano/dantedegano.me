@@ -118,8 +118,9 @@
                     .submit{
                         background-color: $purple;
                         color: white;
-                        text-transform: uppercase;
+                        height: 44px;
                         font-weight: 600;
+                        font-size: 28px;
                         &:hover{
                             animation: hover-btn-module1 0.5s forwards;
                         }
@@ -208,9 +209,9 @@
             }
             a{
                 color:white;
-                font-size: 32px;
+                font-size: 28px;
                 font-weight: 600;
-                border-radius: 25px;
+                border-radius: 5px;
                 background-color: $purple;
                 padding: 5px 20px;
                 cursor: pointer;

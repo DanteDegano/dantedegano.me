@@ -113,7 +113,11 @@ const User = mongoose.model('User', {
 const pedidoSchema = new mongoose.Schema({
     nombre: String,
     email: String,
-    mensaje: String
+    mensaje: String,
+    fechaCreacion: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 // Crea el modelo para la colección "pedidos"
@@ -132,7 +136,7 @@ app.post('/enviar-correo', async (req, res) => {
 
   // Configuración del correo electrónico
   const mailOptions = {
-    from: 'noreply@gmail.com', // Reemplaza con tu dirección de correo
+    from: 'dantedegano@gmail.com', // Reemplaza con tu dirección de correo
     to: 'dantedegano@gmail.com', // Reemplaza con la dirección del destinatario
     subject: 'Tienes un nuevo pedido:',
     text: `Nombre: ${nombre}\nCorreo: ${email}\nMensaje: ${mensaje}`
@@ -158,29 +162,36 @@ app.post('/enviar-correo', async (req, res) => {
   });
 });
 
+
 //Endpoints:
 
-app.get('/', (req, res) => {
-    if (req.session.user) {
-        res.render('home', {
-            user: req.session.user,
-            isAdmin: req.session.isAdmin,
-            isUser: req.session.isUser
-        });
-    } else {
-        res.render('home');
+app.get('/', async (req, res) => {
+    try {
+        if (req.session.user) {
+            // If there is a user session, render the 'home' view with user information
+            const pedidos = await Pedido.find();
+            res.render('home', {
+                user: req.session.user,
+                isAdmin: req.session.isAdmin,
+                isUser: req.session.isUser,
+                pedidos
+            });
+        } else {
+            // If there is no user session, render the 'home' view without additional data
+            res.render('home');
+        }
+    } catch (error) {
+        // Handle errors
+        console.error('Error:', error);
+        res.status(500).send('Internal Server Error');
     }
-})
-
-app.get('/home', (req, res) =>{
-    res.render('home')
-})
+});
 
 app.get('/error', (req, res) => {
-    res.render('error')
-})
+    res.render('error');
+});
 
-app.post('/home', async (req, res) => {
+app.post('/', async (req, res) => {
 
     const { username, password } = req.body;
     if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
@@ -219,7 +230,7 @@ app.post('/register', async (req, res) =>{
     }else{
         const newUser = new User({username, password, email})
         await newUser.save()
-        res.redirect('/home')
+        res.redirect('/')
     }
 })
 
