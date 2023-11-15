@@ -283,11 +283,19 @@ app.post('/reset-password', async (req, res) => {
 
 // Borra usuario de la base de datos
 
-app.get('/delete-account', (req, res) =>{
-    res.render('delete-account')
-})
+const isAuthenticated = (req, res, next) => {
+    if (req.session && req.session.user) {
+        next();
+    } else {
+        res.redirect('/');
+    }
+};
 
-app.post('/delete-account', async (req, res) => {
+app.get('/delete-account', isAuthenticated, (req, res) => {
+    res.render('delete-account');
+});
+
+app.post('/delete-account', isAuthenticated, async (req, res) => {
     const { username, password } = req.body;
     try {
         const usuarioExistente = await User.findOne({ username, password });
@@ -304,15 +312,16 @@ app.post('/delete-account', async (req, res) => {
     }
 });
 
+
+
 app.get('/logout', (req, res) =>{
     req.session.destroy()
     res.redirect('/')
 })
+
 
 console.log(process.env.PORT)
 const PORT = process.env.PORT || 7070
 app.listen(PORT, () =>{
     console.log(`Su servidor se esta ejecutando en http://localhost:${PORT}/`)
 })
-
-/* Como autoresetar con HBS */
