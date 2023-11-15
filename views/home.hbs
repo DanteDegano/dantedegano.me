@@ -87,7 +87,7 @@
                         {{#if isUser}}
                             <a href="/delete-account">¿Desea borrar su usuario?</a>
                             {{else}}
-                            <section class="header_wrp_login">
+                            <section id="loginMenu"class="header_wrp_login">
                                 <div class="header_wrp_login_top">
                                     <p>Ingresar Cuenta</p>
                                         <svg class="arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="16px" width="16px" version="1.1" id="Icons" viewBox="0 0 32 32" xml:space="preserve">
@@ -96,7 +96,7 @@
                                             </g>
                                         </svg>
                                 </div>
-                                <div class="header_wrp_login_bottom">
+                                <div id="loginMenuBottom" class="header_wrp_login_bottom">
                                     <form action="/home" method="POST">
                                         <input name="username" id="username" type="text" placeholder="Usuario" required/>
                                         <input type="password" id="password" name="password" placeholder="Contraseña" required/> 
@@ -331,6 +331,8 @@
                   </div>
             </div>
         </section>
+
+        {{#if isUser}}
         <section class="module_4" >
             <div class="anchor" id="4"></div>
             <div class="module_4_wrp">
@@ -363,6 +365,8 @@
                 </div>
             </div>
         </section>
+        {{/if}}
+
         <section class="cat_wrp">
             <a href="https://github.com/DanteDegano" target="_blank">
                 <div class="cat" id="cat">

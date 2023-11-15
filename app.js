@@ -105,9 +105,11 @@ const Producto = mongoose.model('Producto', {
     descripcion: String
 })
 
+
 // Configuración del body-parser para manejar datos de formularios
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
 
 // Ruta para manejar el formulario
 app.post('/enviar-correo', (req, res) => {
@@ -144,9 +146,7 @@ app.post('/enviar-correo', (req, res) => {
 });
 
 
-
 //Endpoints:
-
 
 app.get('/', (req, res) => {
     if (req.session.user) {
@@ -261,10 +261,6 @@ app.post('/delete-account', async (req, res) => {
     }
 });
 
-
-
-
-
 app.get('/logout', (req, res) =>{
     req.session.destroy()
     res.redirect('/')
@@ -275,6 +271,5 @@ const PORT = process.env.PORT || 7070
 app.listen(PORT, () =>{
     console.log(`Su servidor se esta ejecutando en http://localhost:${PORT}/`)
 })
-
 
 /* Como autoresetar con HBS */
