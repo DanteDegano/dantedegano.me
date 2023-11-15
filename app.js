@@ -274,7 +274,7 @@ app.post('/reset-password', async (req, res) => {
 
         await user.save();
 
-        res.render('/', { message: 'Your password has been successfully reset. You can now log in with your new password.' });
+        res.render('home', { message: 'Your password has been successfully reset. You can now log in with your new password.' });
     } else {
         res.render('reset-password', { error: 'Invalid or expired token. Please try again.' });
     }

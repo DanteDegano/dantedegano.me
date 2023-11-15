@@ -9,7 +9,30 @@ const loginBody = document.getElementById('loginBody');
 const loginMenu = document.getElementById('loginMenu');
 const loginMenuBottom = document.getElementById('loginMenuBottom');
 
+if (loginMenu){
+    
+    loginMenu.addEventListener('click', function(ev){
+        loginMenuBottom.classList.add('flex');
+    });
+    
+    document.addEventListener('click', function(ev) {
+        if (!loginMenu.contains(ev.target)) {
+            loginMenuBottom.classList.remove('flex');
+        }
+    });
+}
 
+if (login){
+    login.addEventListener('click', function(ev){
+        loginBody.classList.add('flex');
+    });
+    
+    document.addEventListener('click', function(ev) {
+        if (!login.contains(ev.target)) {
+            loginBody.classList.remove('flex');
+        }
+    });
+}
 
 burger.addEventListener('click', function(ev){
     menu_wrp.classList.add('translatex');
@@ -17,25 +40,6 @@ burger.addEventListener('click', function(ev){
     body.classList.add('no-scroll');
 });
 
-login.addEventListener('click', function(ev){
-    loginBody.classList.add('flex');
-});
-
-document.addEventListener('click', function(ev) {
-    if (!login.contains(ev.target)) {
-        loginBody.classList.remove('flex');
-    }
-});
-
-loginMenu.addEventListener('click', function(ev){
-    loginMenuBottom.classList.add('flex');
-});
-
-document.addEventListener('click', function(ev) {
-    if (!loginMenu.contains(ev.target)) {
-        loginMenuBottom.classList.remove('flex');
-    }
-});
 
 cross_menu.addEventListener('click', function(ev){
     menu_wrp.classList.remove('translatex');
