@@ -33,10 +33,11 @@ CRUD aplicado:
 
 Create: Puedo crear nuevos usuarios.
 Read: Se utiliza para iniciar sesion desde la misma Home.
-Update: Puedo cambiar contraseña de usuarios existentes
-Delete: Podes borrar un usario dentro del menu mobile cuando ya estes logeado
+Update: Puedo cambiar contraseña de usuarios existentes, manda un mail a tu correo y generando un token podes cambiar la contraseña.
+Delete: Podes borrar un usario dentro del menu mobile cuando ya estes logeado.
 
 El formulario funciona con nodemailer.
+
 
 (Hay dos tipos de usuarios: El usuario convencional y el Admin)
 

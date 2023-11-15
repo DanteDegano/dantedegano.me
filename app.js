@@ -49,7 +49,6 @@ let original_password = process.env.ADMIN_PASSWORD
 
 let hashedPassword
 
-
 bcrypt.genSalt(10, (err, salt) =>{
     if(err){
         console.log("Hubo un error al generar la sal")
@@ -103,7 +102,6 @@ database.on('error', () =>{
 database.once('open', () =>{
     console.log('Conectado a MongoDB')
 })
-
 
 const User = mongoose.model('User', {
     username: String, 
@@ -210,12 +208,10 @@ app.post('/register', async (req, res) =>{
 })
 
 
-
 // Cambia contraseña de usario ya existente
 
 app.use(express.urlencoded({ extended: true }));
 
-// Set up nodemailer transporter (replace with your email configuration)
 
 app.get('/change-password', (req, res) => {
     res.render('change-password');
@@ -224,7 +220,6 @@ app.get('/change-password', (req, res) => {
 app.post('/change-password', async (req, res) => {
     const { username, email } = req.body;
 
-    // Generate a unique token
     const token = crypto.randomBytes(20).toString('hex');
 
     const user = await User.findOneAndUpdate(
@@ -234,10 +229,8 @@ app.post('/change-password', async (req, res) => {
     
 
     if (user) {
-        // Send an email with the token
         const resetLink = `http://localhost:${PORT}/reset-password?token=${token}`;
 
-        // Use nodemailer to send an email with the resetLink to the user's email address
         transporter.sendMail({
             to: user.email,
             subject: 'Password Reset',
@@ -250,11 +243,9 @@ app.post('/change-password', async (req, res) => {
     }
 });
 
-// Add a route to handle the password reset link with the token
 app.get('/reset-password', async (req, res) => {
     const { token } = req.query;
 
-    // Find the user by the reset token and check if it's still valid
     const user = await User.findOne({
         resetPasswordToken: token,
         resetPasswordExpires: { $gt: Date.now() },
@@ -262,25 +253,21 @@ app.get('/reset-password', async (req, res) => {
     
 
     if (user) {
-        // Render a page where the user can enter a new password
         res.render('reset-password', { token });
     } else {
         res.render('reset-password', { error: 'Invalid or expired token. Please try again.' });
     }
 });
 
-// Add a route to handle the submission of the new password
 app.post('/reset-password', async (req, res) => {
     const { token, newPassword } = req.body;
 
-    // Find the user by the reset token and check if it's still valid
     const user = await User.findOne({
         resetPasswordToken: token,
         resetPasswordExpires: { $gt: Date.now() },
     });
 
     if (user) {
-        // Update the user's password and clear the reset token fields
         user.password = newPassword;
         user.resetPasswordToken = undefined;
         user.resetPasswordExpires = undefined;
@@ -292,7 +279,6 @@ app.post('/reset-password', async (req, res) => {
         res.render('reset-password', { error: 'Invalid or expired token. Please try again.' });
     }
 });
-
 
 
 // Borra usuario de la base de datos
