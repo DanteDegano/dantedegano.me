@@ -2479,6 +2479,11 @@ button.swiper-pagination-bullet {
   padding: 20px;
   position: relative;
 }
+.formulario_wrp_advertencia {
+  margin-top: 20px;
+  color: #ffa500;
+  font-size: 20px;
+}
 .formulario_wrp_logo {
   position: absolute;
   top: 0;

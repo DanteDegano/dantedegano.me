@@ -40,10 +40,11 @@ La calificación es de un 6 para la aprobación de; fullstack.
 
 Explicacion del tp: (El back esta realizado con Node.js y el Front con HBS.)
 
+Este proyecto este enfocado en hacer un login lo mas profesional posible.
 
 CRUD aplicado:  
 
-Create: Puedo crear nuevos usuarios.
+Create: Puedo crear nuevos usuarios., manda un mail a tu correo y generando un token podes cambiar la contraseña.
 Read: Se utiliza para iniciar sesion desde la misma Home.
 Update: Puedo cambiar contraseña de usuarios existentes, manda un mail a tu correo y generando un token podes cambiar la contraseña.
 Delete: Podes borrar un usario dentro del menu mobile cuando ya estes logeado.
@@ -51,9 +52,7 @@ Delete: Podes borrar un usario dentro del menu mobile cuando ya estes logeado.
 
 Middlewares aplicados:
 
-En /login y en /delete password que son las unicas dos vistas que un usuario no registrado no deberia poder ver
-
-El formulario funciona con nodemailer. Manda al mail el pedido y tmb lo guarda en una base de datos.
+En /login,/reset-password, /change-password y en /delete password que son las unicas dos vistas que un usuario no registrado no deberia poder ver
 
 (Hay 3 tipos de usuarios: El usuario registrado, el no registrado y el Admin)
 

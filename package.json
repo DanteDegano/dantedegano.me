@@ -23,6 +23,7 @@
     "express-session": "^1.17.3",
     "hbs": "^4.2.0",
     "mongoose": "^7.6.1",
-    "nodemailer": "^6.9.7"
+    "nodemailer": "^6.9.7",
+    "uuid": "^9.0.1"
   }
 }

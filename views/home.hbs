@@ -50,15 +50,15 @@
                         <form action="/" method="POST">
                             <input name="username" id="username" type="text" placeholder="Usuario" required/>
                             <input type="password" id="password" name="password" placeholder="Contraseña" required/> 
-                            {{#if error}}
-                                <p style="color: red">{{error}}</p>
-                            {{/if}}
-                            <input class="submit" type="submit" value="Ingresar" />
+                            <input id="login_submit" class="submit" type="submit" value="Ingresar" />
                         </form>
                         <span>¿Te olvidaste la contraseña? <br> <a href="/change-password">Cambiar Contraseña</a></span>
                         <br>
                         <span>¿Aun no estás registrado? <br> <a href="/register">Regístrate aquí</a></span>
                     </div>
+                    {{#if error}}
+                    <p style="color: red; text-align:center;font-size: 19px">{{error}}</p>
+                    {{/if}}
                 </section>
 
                 <div id="burger" class="header_wrp_right_burger">

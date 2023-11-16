@@ -23,6 +23,11 @@
         height: 100%;
         padding: 20px;
         position: relative;
+        &_advertencia{
+            margin-top: 20px;
+            color: $orange;
+            font-size: 20px;
+        }
         &_logo{
             position: absolute;
             top: 0;

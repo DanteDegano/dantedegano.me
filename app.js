@@ -7,6 +7,8 @@ const crypto = require('crypto');
 const hbs = require("hbs")
 const dotenv = require('dotenv')
 const bcrypt = require('bcrypt')
+const { v4: uuidv4 } = require('uuid');
+
 dotenv.config()
 
   const ADMIN_MAIL = process.env.ADMIN_MAIL
@@ -232,52 +234,46 @@ function verificarContraseñaForUser(inputPassword, storedPassword) {
     return inputPassword === storedPassword;
 }
 
-// Registra un nuevo usuario
+app.get('/register', (req, res) => {
+    res.render('register');
+});
 
-app.get('/register', (req, res) =>{
-    res.render('register')
-})
-
-// Registro de un nuevo usuario
 app.post('/register', async (req, res) => {
-    const { username, password, email } = req.body;
+    const { username, email } = req.body;
 
-    // Verificar si el nombre de usuario ya está en uso
-    const usuarioExistente = await User.findOne({ username });
+    try {
+        const generatedPassword = uuidv4();
 
-    if (usuarioExistente) {
-        res.render('register', { error: 'El nombre de usuario ya está siendo utilizado' });
-    } else {
-        // Crear un nuevo usuario con el token de verificación
-        const newUser = new User({ username, password, email, token });
+        const hashedPassword = await bcrypt.hash(generatedPassword, 10);
+
+        const newUser = new User({ username, password: hashedPassword, email });
         await newUser.save();
 
-        // Enviar correo de verificación
-        const verificationLink = `http://localhost:${PORT}/login?token=${token}`;
         const mailOptions = {
             from: 'dantedegano@gmail.com',
             to: email,
-            subject: 'Verificación de correo electrónico',
-            html: `Haga clic <a href="${verificationLink}">aquí</a> para verificar su correo electrónico.`,
+            subject: 'Bienvenido a la aplicación',
+            html: `Bienvenido, ${username}! Su contraseña temporal es: "${hashedPassword}" Recuerde cambiarla después de iniciar sesión.`,
         };
-
-        transporter.sendMail(mailOptions);
-
-        // Redirigir a la página de inicio de sesión
+        await transporter.sendMail(mailOptions);
         res.redirect('login');
+
+    } catch (error) {
+        console.error(error);
+        res.render('register', { error: 'Error al registrar el usuario' });
     }
 });
 
-
+/* */
 // Cambia contraseña de usario ya existente
 
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/change-password', (req, res) => {
+app.get('/change-password',isAuthenticated, (req, res) => {
     res.render('change-password');
 });
 
-app.post('/change-password', async (req, res) => {
+app.post('/change-password',isAuthenticated, async (req, res) => {
     const { username, email } = req.body;
 
     const user = await User.findOneAndUpdate(
@@ -285,7 +281,6 @@ app.post('/change-password', async (req, res) => {
         { resetPasswordToken: token, resetPasswordExpires: Date.now() + 3600000 }
     );
     
-
     if (user) {
         const resetLink = `http://localhost:${PORT}/reset-password?token=${token}`;
 
@@ -301,7 +296,7 @@ app.post('/change-password', async (req, res) => {
     }
 });
 
-app.get('/reset-password', async (req, res) => {
+app.get('/reset-password', isAuthenticated, async (req, res) => {
     const { token } = req.query;
 
     const user = await User.findOne({
@@ -317,7 +312,7 @@ app.get('/reset-password', async (req, res) => {
     }
 });
 
-app.post('/reset-password', async (req, res) => {
+app.post('/reset-password',isAuthenticated, async (req, res) => {
     const { token, newPassword } = req.body;
 
     const user = await User.findOne({
