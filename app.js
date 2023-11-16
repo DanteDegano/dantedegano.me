@@ -12,6 +12,9 @@ dotenv.config()
   const ADMIN_MAIL = process.env.ADMIN_MAIL
   const ADMIN_MAIL_PASS = process.env.ADMIN_MAIL_PASS
 
+    //token de validacion 
+  const token = crypto.randomBytes(20).toString('hex');
+
   // Configuración de nodemailer
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -235,17 +238,36 @@ app.get('/register', (req, res) =>{
     res.render('register')
 })
 
-app.post('/register', async (req, res) =>{
-    const {username, password, email} = req.body
-    const usuarioExistente =  await User.findOne({username})
-    if(usuarioExistente){
-        res.render('register', {error: 'El nombre de usuario ya esta siendo utilizado'})
-    }else{
-        const newUser = new User({username, password, email})
-        await newUser.save()
-        res.redirect('login')
+// Registro de un nuevo usuario
+app.post('/register', async (req, res) => {
+    const { username, password, email } = req.body;
+
+    // Verificar si el nombre de usuario ya está en uso
+    const usuarioExistente = await User.findOne({ username });
+
+    if (usuarioExistente) {
+        res.render('register', { error: 'El nombre de usuario ya está siendo utilizado' });
+    } else {
+        // Crear un nuevo usuario con el token de verificación
+        const newUser = new User({ username, password, email, token });
+        await newUser.save();
+
+        // Enviar correo de verificación
+        const verificationLink = `http://localhost:${PORT}/login?token=${token}`;
+        const mailOptions = {
+            from: 'dantedegano@gmail.com',
+            to: email,
+            subject: 'Verificación de correo electrónico',
+            html: `Haga clic <a href="${verificationLink}">aquí</a> para verificar su correo electrónico.`,
+        };
+
+        transporter.sendMail(mailOptions);
+
+        // Redirigir a la página de inicio de sesión
+        res.redirect('login');
     }
-})
+});
+
 
 // Cambia contraseña de usario ya existente
 
@@ -257,8 +279,6 @@ app.get('/change-password', (req, res) => {
 
 app.post('/change-password', async (req, res) => {
     const { username, email } = req.body;
-
-    const token = crypto.randomBytes(20).toString('hex');
 
     const user = await User.findOneAndUpdate(
         { username, email },
