@@ -1,0 +1,33 @@
+.module_7{
+    background-color: $black-git;
+    padding: 20px;
+    max-width: 1250px;
+    margin: 0 auto;
+    &_wrp{
+        background-color: #0D1117;
+        padding: 20px;
+    }
+    h2{
+        color: #6e40c9;
+        font-size: 48px;
+        margin-bottom: 50px;
+    }
+    ul{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        justify-content: center;
+        li{
+            list-style-type: none;
+            color:#b6bfc7;
+            width: 250px;
+            height: 300px;
+            border: 2px solid #30363c;
+            border-radius: 5px;
+            padding: 10px;
+            strong{
+                color: $orange;
+            }
+        }
+    }
+}

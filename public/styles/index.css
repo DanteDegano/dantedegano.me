@@ -1295,6 +1295,40 @@ body {
     display: none;
   }
 }
+.module_7 {
+  background-color: #21262c;
+  padding: 20px;
+  max-width: 1250px;
+  margin: 0 auto;
+}
+.module_7_wrp {
+  background-color: #0D1117;
+  padding: 20px;
+}
+.module_7 h2 {
+  color: #6e40c9;
+  font-size: 48px;
+  margin-bottom: 50px;
+}
+.module_7 ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+.module_7 ul li {
+  list-style-type: none;
+  color: #b6bfc7;
+  width: 250px;
+  height: 300px;
+  border: 2px solid #30363c;
+  border-radius: 5px;
+  padding: 10px;
+}
+.module_7 ul li strong {
+  color: orange;
+}
+
 /**
  * Swiper 9.1.0
  * Most modern mobile touch slider and framework with hardware accelerated transitions

@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Home Logeada</title>
     <link rel="stylesheet" href="/styles/index.css">
     <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
     <script>
@@ -36,31 +35,19 @@
                 <li><a href="#5">Metodologia</a></li>
                 <li><a href="#2">Conocimientos</a></li>
                 <li><a href="#3">Clientes</a></li>
-
-                <section id="login" class="header_wrp_login">
-                    <div class="header_wrp_login_top">
-                        <p>Ingresar Cuenta</p>
-                        <svg class="arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="16px" width="16px" version="1.1" id="Icons" viewBox="0 0 32 32" xml:space="preserve">
-                            <g>
-                                <path d="M24.4,24c-0.9,0-1.8-0.3-2.5-1l-5.8-5.7c-0.1-0.1-0.2-0.1-0.3,0L10.1,23c-1.4,1.4-3.6,1.4-5,0c-0.7-0.7-1-1.6-1-2.5   c0-1,0.4-1.8,1-2.5l9.4-9.3c0.9-0.9,2.3-0.9,3.1,0l9.4,9.3c0.7,0.7,1,1.6,1,2.5c0,1-0.4,1.8-1,2.5C26.2,23.7,25.3,24,24.4,24z"/>
-                            </g>
-                        </svg>
+                <li><a href="#4">Contacto</a></li>
+                {{#if isAdmin}}
+                    <div class="header_wrp_login_iniciado">
+                        <h4 style="color: white;">Bienvenido {{user.username}}</h4>
+                        <p style="color: red;">(Modo Admin)</p>
+                        <a href="/logout">Cerrar sesión</a>
                     </div>
-                    <div id="loginBody" class="header_wrp_login_bottom">
-                        <form action="/" method="POST">
-                            <input name="username" id="username" type="text" placeholder="Usuario" required/>
-                            <input type="password" id="password" name="password" placeholder="Contraseña" required/> 
-                            {{#if error}}
-                                <p style="color: red">{{error}}</p>
-                            {{/if}}
-                            <input class="submit" type="submit" value="Ingresar" />
-                        </form>
-                        <span>¿Te olvidaste la contraseña? <br> <a href="/change-password">Cambiar Contraseña</a></span>
-                        <br>
-                        <span>¿Aun no estás registrado? <br> <a href="/register">Regístrate aquí</a></span>
-                    </div>
-                </section>
-
+                {{else}}
+                        <div class="header_wrp_login_iniciado">
+                            <h4 style="color: white;">Bienvenido {{user.username}}</h4>
+                            <a href="/logout">Cerrar sesión</a>
+                        </div>
+                {{/if}}
                 <div id="burger" class="header_wrp_right_burger">
                     <span class="header_wrp_right_burger_span"></span>
                     <span class="header_wrp_right_burger_span"></span>
@@ -75,39 +62,16 @@
                 {{#if isAdmin}}
                         <h4 style="color: white; font-size: 32px">Eres el administrador de esta pagina.</h4>
                     {{else}}
-                        {{#if isUser}}
                             <h3>Bienvenido {{user.username}}</h3>
                             <a href="/change-password">Cambiar su contraseña</a>
                             <a href="/logout">Cerrar sesion</a>
                             <a href="/delete-account">Borrar session</a>
-                            {{else}}
-                            <section id="loginMenu"class="header_wrp_login">
-                                <div class="header_wrp_login_top">
-                                    <p>Ingresar Cuenta</p>
-                                        <svg class="arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="16px" width="16px" version="1.1" id="Icons" viewBox="0 0 32 32" xml:space="preserve">
-                                            <g>
-                                                <path d="M24.4,24c-0.9,0-1.8-0.3-2.5-1l-5.8-5.7c-0.1-0.1-0.2-0.1-0.3,0L10.1,23c-1.4,1.4-3.6,1.4-5,0c-0.7-0.7-1-1.6-1-2.5   c0-1,0.4-1.8,1-2.5l9.4-9.3c0.9-0.9,2.3-0.9,3.1,0l9.4,9.3c0.7,0.7,1,1.6,1,2.5c0,1-0.4,1.8-1,2.5C26.2,23.7,25.3,24,24.4,24z"/>
-                                            </g>
-                                        </svg>
-                                </div>
-                                <div id="loginMenuBottom" class="header_wrp_login_bottom">
-                                    <form action="/" method="POST">
-                                        <input name="username" id="username" type="text" placeholder="Usuario" required/>
-                                        <input type="password" id="password" name="password" placeholder="Contraseña" required/> 
-                                    {{#if error}}
-                                    <p style="color: red">{{error}}</p>
-                                    {{/if}}
-                                    <input class="submit" type="submit" value="Ingresar" />
-                                    </form>
-                                    <span>Aun no estas registrado? <br> <a href="/register">Registrate aqui</a></span>
-                                </div>
-                            </section>
-                        {{/if}}
                 {{/if}}
                 </div>
             </div>
         </div>
     </header>
+
 
     <main">
         <section class="module_1">
@@ -325,6 +289,64 @@
             </div>
         </section>
 
+        {{#if isUser}}
+        <section class="module_4" >
+            <div class="anchor" id="4"></div>
+            <div class="module_4_wrp">
+                <h2>Contacto</h2>
+                <div class="contact_form reveal">
+                    <form action="/enviar-correo" method="post">
+                        <div class="contact_form_right">
+                            <div class="contact_form_right_contact">
+                                <div class="contact_form_right_name">
+                                    <label class="contact_form_label" for="size_1" >Nombre y Apellido <span class="contact_form_label_error">*</span></label>
+                                    <input  type="text" name="nombre" id="size_1" required="">
+                                </div>
+                            </div>
+        
+                            <div class="contact_form_right_contact">
+                                <div class="contact_form_right_mail">
+                                    <label class="contact_form_label" for="size_2">Tu correo electrónico <span class="contact_form_label_error">*</span> </label>
+                                    <input  type="text" name="email" id="size_2" required="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contact_form_left">
+                            <label class="contact_form_label" for="size_3">Mensaje</label>
+                            <textarea class="contact_form_text_area" name="mensaje" required="" rows="10"></textarea>    
+                        </div>
+                        <div class="generic_btn_wrp_end">
+                        <input class="generic_btn" type="submit" name="register">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        {{/if}}
+
+        {{#if isAdmin}}
+        <section class="module_7">
+            <div class="module_7_wrp">
+            <h2>Listado de Pedidos</h2>
+
+            {{#if pedidos.length}}
+                <ul>
+                    {{#each pedidos}}
+                        <li>
+                            <strong>Nombre:</strong> {{nombre}}<br>
+                            <strong>Email:</strong> {{email}}<br>
+                            <strong>Mensaje:</strong> {{mensaje}}<br>
+                            <strong>Fecha:</strong> {{fechaCreacion}}
+                        </li>
+                    {{/each}}
+                </ul>
+            {{else}}
+                <p>No hay pedidos en este momento.</p>
+            {{/if}}
+            </div>
+        </section>
+        {{/if}}
+
         <section class="cat_wrp">
             <a href="https://github.com/DanteDegano" target="_blank">
                 <div class="cat" id="cat">
@@ -347,22 +369,12 @@
             <h2 class="question" id="question">GitHub</h2>
         </section>
 
-        <section class="module_cookies" id="cookies">
-            <div class="module_cookies_wrp">
-                <div class="module_cookies_card">
-                    <h2>Al navegar por este sitio aceptás el uso de cookies para agilizar tu experiencia de usuario.</h2>
-                    <button id="cookies_accept"> Entendido</button>
-                </div>
-            </div>
-        </section>
     </main>
-
     <!--Script-->
     <script src="/js/swiper_min.js"></script>
     <script src="/js/swiperPersonalizado.js"></script>
     <script src="/js/reveal.js"></script>
     <script src="/js/cat.js"></script>
     <script src="/js/menu.js"></script>
-    <script src="/js/cookies.js"></script>
 </body>
 </html>

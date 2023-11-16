@@ -30,10 +30,11 @@ app.use(express.static(__dirname + '/public'))
 const session_params ={
     secret: 'keySecret',
     resave: false,
-    saveUnitialized: true,
+    saveUninitialized: false,  // Agrega esta línea
     cookie: {secure: false}
-}
-app.use(session(session_params))
+};
+app.use(session(session_params));
+
 
 //Configurando Handlebars
 
@@ -102,6 +103,9 @@ database.once('open', () =>{
     console.log('Conectado a MongoDB')
 })
 
+
+//Modelos
+
 const User = mongoose.model('User', {
     username: String, 
     password: String,
@@ -110,18 +114,22 @@ const User = mongoose.model('User', {
     resetPasswordExpires: Date,
 });
 
+
+
 const pedidoSchema = new mongoose.Schema({
     nombre: String,
     email: String,
     mensaje: String,
     fechaCreacion: {
         type: Date,
-        default: Date.now
+        default: Date.now  // Set the default value to the current date and time
     }
 });
 
-// Crea el modelo para la colección "pedidos"
+
 const Pedido = mongoose.model('Pedido', pedidoSchema);
+
+
 
 
 // Configuración del body-parser para manejar datos de formularios
@@ -129,88 +137,105 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-// Ruta para manejar el formulario
-app.post('/enviar-correo', async (req, res) => {
-  // Obtén los datos del formulario desde el cuerpo de la solicitud
-  const { nombre, email, mensaje } = req.body;
 
-  // Configuración del correo electrónico
-  const mailOptions = {
-    from: 'dantedegano@gmail.com', // Reemplaza con tu dirección de correo
-    to: 'dantedegano@gmail.com', // Reemplaza con la dirección del destinatario
-    subject: 'Tienes un nuevo pedido:',
-    text: `Nombre: ${nombre}\nCorreo: ${email}\nMensaje: ${mensaje}`
-  };
+//Autentificador 
 
-  // Envía el correo electrónico
-  transporter.sendMail(mailOptions, async (error, info) => {
-    if (error) {
-      return res.status(500).send(error.toString());
+const isAuthenticated = (req, res, next) => {
+    if (req.session && req.session.user) {
+        next();
+    } else {
+        res.redirect('/');
     }
-
-    // Guarda la información del pedido en la colección "pedidos"
-    try {
-      const nuevoPedido = new Pedido({ nombre, email, mensaje });
-      await nuevoPedido.save();
-      console.log('Pedido guardado en la base de datos');
-    } catch (error) {
-      console.error('Error al guardar el pedido en la base de datos:', error);
-      return res.status(500).send(error.toString());
-    }
-
-    res.render('home');
-  });
-});
-
+};
 
 //Endpoints:
 
-app.get('/', async (req, res) => {
-    try {
-        if (req.session.user) {
-            // If there is a user session, render the 'home' view with user information
-            const pedidos = await Pedido.find();
-            res.render('home', {
-                user: req.session.user,
-                isAdmin: req.session.isAdmin,
-                isUser: req.session.isUser,
-                pedidos
-            });
-        } else {
-            // If there is no user session, render the 'home' view without additional data
-            res.render('home');
-        }
-    } catch (error) {
-        // Handle errors
-        console.error('Error:', error);
-        res.status(500).send('Internal Server Error');
+app.get('/', (req, res) => {
+    if (req.session.user) {
+        res.render('login', {
+            user: req.session.user,
+            isAdmin: req.session.isAdmin,
+            isUser: req.session.isUser
+        });
+    } else {
+        res.render('home');
     }
 });
 
-app.get('/error', (req, res) => {
-    res.render('error');
-});
-
 app.post('/', async (req, res) => {
-
     const { username, password } = req.body;
     if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
         req.session.isAdmin = true;
         req.session.isUser = false;
         req.session.user = { username };
-        return res.redirect('/');
+        return res.redirect('/login');
     }
-    
+
     const user = await User.findOne({ username });
     if (user && verificarContraseñaForUser(password, user.password)) {
         req.session.isAdmin = false;
         req.session.isUser = true;
-        req.session.user = user;
-        return res.redirect('/');
+        req.session.user = user;  // Set the session user
+        return res.redirect('/login');
     } else {
         res.render('home', { error: 'Credenciales inválidas' });
     }
 });
+
+
+app.get('/login', isAuthenticated, async (req, res) => {
+    if (req.session.user) {
+        try {
+            const pedidos = await Pedido.find();
+            res.render('login', {
+                user: req.session.user,
+                isAdmin: req.session.isAdmin,
+                isUser: req.session.isUser,
+                pedidos: pedidos, // Pass the orders to the view
+            });
+        } catch (error) {
+            console.error('Error al recuperar los pedidos:', error);
+            res.status(500).send('Error interno del servidor');
+        }
+    } else {
+        res.render('home');
+    }
+});
+
+
+// Ruta para manejar el formulario
+app.post('/enviar-correo', async (req, res) => {
+    // Obtén los datos del formulario desde el cuerpo de la solicitud
+    const { nombre, email, mensaje } = req.body;
+  
+    // Configuración del correo electrónico
+    const mailOptions = {
+      from: 'dantedegano@gmail.com', // Reemplaza con tu dirección de correo
+      to: 'dantedegano@gmail.com', // Reemplaza con la dirección del destinatario
+      subject: 'Tienes un nuevo pedido:',
+      text: `Nombre: ${nombre}\nCorreo: ${email}\nMensaje: ${mensaje}`
+    };
+  
+    // Envía el correo electrónico
+    transporter.sendMail(mailOptions, async (error, info) => {
+      if (error) {
+        return res.status(500).send(error.toString());
+      }
+      // Guarda la información del pedido en la colección "pedidos"
+      try {
+        const nuevoPedido = new Pedido({ nombre, email, mensaje });
+        await nuevoPedido.save();
+        console.log('Pedido guardado en la base de datos');
+      } catch (error) {
+        console.error('Error al guardar el pedido en la base de datos:', error);
+        return res.status(500).send(error.toString());
+      }
+      res.redirect('/login')
+    });
+  });
+
+
+
 
 function verificarContraseñaForUser(inputPassword, storedPassword) {
     return inputPassword === storedPassword;
@@ -230,10 +255,9 @@ app.post('/register', async (req, res) =>{
     }else{
         const newUser = new User({username, password, email})
         await newUser.save()
-        res.redirect('/')
+        res.redirect('login')
     }
 })
-
 
 // Cambia contraseña de usario ya existente
 
@@ -306,16 +330,8 @@ app.post('/reset-password', async (req, res) => {
     }
 });
 
-
 // Borra usuario de la base de datos
 
-const isAuthenticated = (req, res, next) => {
-    if (req.session && req.session.user) {
-        next();
-    } else {
-        res.redirect('/');
-    }
-};
 
 app.get('/delete-account', isAuthenticated, (req, res) => {
     res.render('delete-account');
