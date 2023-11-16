@@ -40,14 +40,14 @@
                 {{/if}}
                 {{#if isAdmin}}
                     <div class="header_wrp_login_iniciado">
-                        <h4 style="color: white;">Bienvenido {{user.username}}</h4>
+                        <h4 style="font-size:22px; color: white;">Bienvenido <span style="color:#ffa500">{{user.username}}</span></h4>
                         <p style="color: red;">(Modo Admin)</p>
                         <a href="/logout">Cerrar sesión</a>
                     </div>
                 {{else}}
                         <div class="header_wrp_login_iniciado">
-                            <h4 style="color: white;">Bienvenido {{user.username}}</h4>
-                            <a href="/logout">Cerrar sesión</a>
+                            <h4 style="font-size:22px; color: white;">Bienvenido <span style="color:#ffa500">{{user.username}}</span></h4>
+                            <a href="/logout">Cerrar sesión</a> / <a href="/change-password">Cambiar clave</a>
                         </div>
                 {{/if}}
                 <div id="burger" class="header_wrp_right_burger">
@@ -67,7 +67,7 @@
                             <h3>Bienvenido {{user.username}}</h3>
                             <a href="/change-password">Cambiar su contraseña</a>
                             <a href="/logout">Cerrar sesion</a>
-                            <a href="/delete-account">Borrar session</a>
+                            <a href="/delete-account">Borrar sesion</a>
                 {{/if}}
                 </div>
             </div>

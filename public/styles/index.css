@@ -19,7 +19,7 @@
     color: #b6bfc7;
   }
   to {
-    color: orange;
+    color: #ffa500;
   }
 }
 @keyframes hover-btn-module1 {
@@ -27,7 +27,7 @@
     background-color: #6e40c9;
   }
   to {
-    background-color: orange;
+    background-color: #ffa500;
   }
 }
 @keyframes hover-logo {
@@ -35,7 +35,7 @@
     fill: #b6bfc7;
   }
   to {
-    fill: orange;
+    fill: #ffa500;
   }
 }
 @keyframes hover-btn-module4 {
@@ -43,7 +43,7 @@
     background-color: #6e40c9;
   }
   to {
-    background-color: orange;
+    background-color: #ffa500;
   }
 }
 @keyframes spacecraft {
@@ -210,7 +210,7 @@ body {
 }
 
 .change_color_orange {
-  color: orange !important;
+  color: #ffa500 !important;
   text-decoration: underline;
 }
 
@@ -269,7 +269,7 @@ body {
   border-radius: 2px;
 }
 .header_wrp_right_burger:hover_span {
-  background-color: orange;
+  background-color: #ffa500;
 }
 .header_wrp ul {
   display: flex;
@@ -350,7 +350,7 @@ body {
   font-weight: 600;
 }
 .header_wrp_login_bottom span a:hover {
-  color: orange;
+  color: #ffa500;
 }
 .header_wrp_login_iniciado {
   margin-top: 30px;
@@ -360,7 +360,7 @@ body {
   text-decoration: none;
 }
 .header_wrp_login_iniciado a:hover {
-  color: orange;
+  color: #ffa500;
 }
 .header_menu {
   height: 100vh;
@@ -398,7 +398,7 @@ body {
   fill: #6e40c9;
 }
 .header_menu_wrp2_cross path:hover {
-  fill: orange;
+  fill: #ffa500;
 }
 .header_menu_wrp2 h2 {
   color: white;
@@ -413,7 +413,7 @@ body {
 }
 .header_menu_wrp2 h2:hover {
   background-color: #21262c;
-  color: orange;
+  color: #ffa500;
 }
 .header_menu_wrp2 h3 {
   color: white;
@@ -435,7 +435,7 @@ body {
 }
 .header_menu_wrp2 a:hover {
   background-color: #21262c;
-  color: orange;
+  color: #ffa500;
 }
 .header_menu_wrp2 ul {
   list-style: none;
@@ -453,7 +453,7 @@ body {
   padding: 0 35px;
 }
 .header_menu_wrp2 ul li:hover a {
-  color: orange;
+  color: #ffa500;
 }
 .header_menu_wrp2 ul li a {
   text-decoration: none;
@@ -651,7 +651,7 @@ body {
 }
 .module_2_wrp_right_information_line h4 {
   font-size: 22px;
-  color: orange;
+  color: #ffa500;
 }
 .module_2_wrp_right_terminal {
   width: 100%;
@@ -667,7 +667,7 @@ body {
   opacity: 40%;
 }
 .module_2_wrp_right_terminal_wrp p:first-child {
-  border-bottom: 2px solid orange;
+  border-bottom: 2px solid #ffa500;
 }
 .module_2_wrp_left {
   top: 50px;
@@ -1189,7 +1189,7 @@ body {
   border: 2px solid #30363c;
 }
 .module_6_wrp_cards_card h2 {
-  color: orange;
+  color: #ffa500;
   font-size: 18px;
   font-weight: 700;
   margin-bottom: 10px;
@@ -1331,7 +1331,7 @@ body {
   margin-top: -4px;
 }
 .module_7 ul li strong {
-  color: orange;
+  color: #ffa500;
 }
 .module_7 ul li span {
   overflow: hidden;
@@ -2442,7 +2442,7 @@ button.swiper-pagination-bullet {
   left: 50%;
   white-space: nowrap;
   font-size: 1px;
-  color: orange;
+  color: #ffa500;
 }
 .question.active {
   animation: questionOn 0.5s forwards;
@@ -2540,7 +2540,7 @@ button.swiper-pagination-bullet {
   font-weight: 600;
 }
 .formulario_wrp_links a:hover {
-  color: orange;
+  color: #ffa500;
 }
 .formulario_wrp_titulo {
   display: flex;
