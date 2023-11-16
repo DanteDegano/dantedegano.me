@@ -1,9 +1,15 @@
-//.env
-// node_modules 
-hay que meterlos en git ignore
 
-Acceso a BD de mongo online: https://cloud.mongodb.com/
+Para mi: Acceso a BD de mongo online: https://cloud.mongodb.com/
 
+Datos a completar del .env
+ADMIN_MAIL=
+ADMIN_MAIL_PASS=
+ADMIN_USERNAME=
+ADMIN_PASSWORD=
+DB_PASSWORD=
+PORT=
+
+...................................................................................................................................................
 
 Requisitos para la aprobación:
 
@@ -28,6 +34,12 @@ Requisitos para la aprobación:
 
 La calificación es de un 6 para la aprobación de; fullstack.
 
+...................................................................................................................................................
+
+
+
+Explicacion del tp: (El back esta realizado con Node.js y el Front con HBS.)
+
 
 CRUD aplicado:  
 
@@ -35,7 +47,11 @@ Create: Puedo crear nuevos usuarios.
 Read: Se utiliza para iniciar sesion desde la misma Home.
 Update: Puedo cambiar contraseña de usuarios existentes, manda un mail a tu correo y generando un token podes cambiar la contraseña.
 Delete: Podes borrar un usario dentro del menu mobile cuando ya estes logeado.
-...................................................................................................................................................
+
+
+Middlewares aplicados:
+
+En /login y en /delete password que son las unicas dos vistas que un usuario no registrado no deberia poder ver
 
 El formulario funciona con nodemailer. Manda al mail el pedido y tmb lo guarda en una base de datos.
 
@@ -43,9 +59,7 @@ El formulario funciona con nodemailer. Manda al mail el pedido y tmb lo guarda e
 
 El usuario no registrado no puede mandar formulario pero si puede contactarse por whatsApp (Obteniendo su telefono)
 El usuario Registrado puede contactarse por whatsApp y tmb puede enviar el formulario. (Obteniendo mail y telefono aunque borre el user)
-El admin por ahora no puede hacer nada, pero en un futuro va a tener una seccion donde van a cargar los pedidos como si fuesen tickets. 
+El admin por ahora no puede hacer nada, pero puede ver una seccion donde van a cargar los pedidos como si fuesen tickets. (en el futuro podra responder desde ahi)
 
-...................................................................................................................................................
 
-El back esta realizado con Node.js y el Front con HBS. 
 

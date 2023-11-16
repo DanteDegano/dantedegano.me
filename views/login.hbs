@@ -21,7 +21,7 @@
     <header id="header" class="header">
         <div class="header_wrp">
             <div class="header_wrp_left">
-                <a href="/">                
+                <a href="/login">                
                     <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="1080.000000pt" height="1054.000000pt" viewBox="0 0 1080.000000 1054.000000" preserveAspectRatio="xMidYMid meet">
                         <g transform="translate(0.000000,1054.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
                         <path d="M5070 10506 c1194 -273 2111 -824 2793 -1679 588 -737 929 -1664 1033 -2807 34 -383 29 -1041 -12 -1470 -118 -1242 -531 -2264 -1224 -3030 -95 -106 -307 -313 -415 -406 -570 -491 -1319 -856 -2195 -1070 l-175 -43 2963 0 2962 -1 0 5270 0 5270 -2937 -1 -2938 0 145 -33z"/>
@@ -31,11 +31,13 @@
                 </a>
             </div>
             <ul class="header_wrp_right">
+                {{#if isUser}}
                 <li><a href="#1">Quien soy</a></li>
                 <li><a href="#5">Metodologia</a></li>
                 <li><a href="#2">Conocimientos</a></li>
                 <li><a href="#3">Clientes</a></li>
                 <li><a href="#4">Contacto</a></li>
+                {{/if}}
                 {{#if isAdmin}}
                     <div class="header_wrp_login_iniciado">
                         <h4 style="color: white;">Bienvenido {{user.username}}</h4>
@@ -74,6 +76,8 @@
 
 
     <main">
+        
+        {{#if isUser}}
         <section class="module_1">
             <div class="module_1_wrp"> 
                 <h1>Full stack developer</h1>
@@ -288,8 +292,6 @@
                   </div>
             </div>
         </section>
-
-        {{#if isUser}}
         <section class="module_4" >
             <div class="anchor" id="4"></div>
             <div class="module_4_wrp">
@@ -333,10 +335,10 @@
                 <ul>
                     {{#each pedidos}}
                         <li>
-                            <strong>Nombre:</strong> {{nombre}}<br>
-                            <strong>Email:</strong> {{email}}<br>
-                            <strong>Mensaje:</strong> {{mensaje}}<br>
-                            <strong>Fecha:</strong> {{fechaCreacion}}
+                            <strong>Nombre:</strong><span>{{nombre}}</span><br>
+                            <strong>Email:</strong><span>{{email}}</span><br>
+                            <strong>Mensaje:</strong><span>{{mensaje}}</span><br>
+                            <strong>Fecha:</strong><span>{{fechaCreacion}}</span>
                         </li>
                     {{/each}}
                 </ul>

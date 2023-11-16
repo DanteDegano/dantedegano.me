@@ -35,7 +35,6 @@ const session_params ={
 };
 app.use(session(session_params));
 
-
 //Configurando Handlebars
 
 app.set('view engine', 'hbs')
@@ -103,7 +102,6 @@ database.once('open', () =>{
     console.log('Conectado a MongoDB')
 })
 
-
 //Modelos
 
 const User = mongoose.model('User', {
@@ -114,28 +112,21 @@ const User = mongoose.model('User', {
     resetPasswordExpires: Date,
 });
 
-
-
 const pedidoSchema = new mongoose.Schema({
     nombre: String,
     email: String,
     mensaje: String,
     fechaCreacion: {
         type: Date,
-        default: Date.now  // Set the default value to the current date and time
+        default: Date.now
     }
 });
 
-
 const Pedido = mongoose.model('Pedido', pedidoSchema);
-
-
-
 
 // Configuración del body-parser para manejar datos de formularios
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 
 
 //Autentificador 
@@ -234,9 +225,6 @@ app.post('/enviar-correo', async (req, res) => {
     });
   });
 
-
-
-
 function verificarContraseñaForUser(inputPassword, storedPassword) {
     return inputPassword === storedPassword;
 }
@@ -332,7 +320,6 @@ app.post('/reset-password', async (req, res) => {
 
 // Borra usuario de la base de datos
 
-
 app.get('/delete-account', isAuthenticated, (req, res) => {
     res.render('delete-account');
 });
@@ -354,15 +341,14 @@ app.post('/delete-account', isAuthenticated, async (req, res) => {
     }
 });
 
-
 app.get('/logout', (req, res) =>{
     req.session.destroy()
     res.redirect('/')
 })
-
 
 console.log(process.env.PORT)
 const PORT = process.env.PORT || 7070
 app.listen(PORT, () =>{
     console.log(`Su servidor se esta ejecutando en http://localhost:${PORT}/`)
 })
+
