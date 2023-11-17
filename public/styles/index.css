@@ -1323,15 +1323,18 @@ body {
   height: 300px;
   border: 4px solid #30363c;
   border-radius: 5px;
-  padding: 10px;
   overflow: hidden;
   box-shadow: 10px 10px 5px 5px black;
+  position: relative;
 }
 .module_7 ul li:hover {
   margin-top: -4px;
+  margin-bottom: 4px;
 }
 .module_7 ul li strong {
   color: #ffa500;
+  position: relative;
+  z-index: 2;
 }
 .module_7 ul li span {
   overflow: hidden;
@@ -1339,6 +1342,36 @@ body {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  position: relative;
+  z-index: 2;
+}
+.module_7_ticket {
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.module_7_ticket_background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: auto;
+  width: 316px;
+  height: 290px;
+  z-index: 1;
+}
+.module_7_ticket_background path {
+  fill: rgba(0, 0, 0, 0.5);
+}
+.module_7_ticket_cross {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  cursor: pointer;
+  z-index: 2;
+}
+.module_7_ticket_cross:hover path {
+  fill: #6e40c9;
 }
 
 /**
