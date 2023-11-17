@@ -1,5 +1,7 @@
 
 Para mi: Acceso a BD de mongo online: https://cloud.mongodb.com/
+Proximas tareas, subir al hostiger y arreglar el formulario de reset password.
+Borrar pedidos desde el admin
 
 Datos a completar del .env
 ADMIN_MAIL=
