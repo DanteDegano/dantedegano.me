@@ -269,11 +269,11 @@ app.post('/register', async (req, res) => {
 
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/change-password',isAuthenticated, (req, res) => {
+app.get('/change-password', (req, res) => {
     res.render('change-password');
 });
 
-app.post('/change-password',isAuthenticated, async (req, res) => {
+app.post('/change-password', async (req, res) => {
     const { username, email } = req.body;
 
     const user = await User.findOneAndUpdate(

@@ -56,6 +56,7 @@
                         <br>
                         <span>¿Aun no estás registrado? <br> <a href="/register">Regístrate aquí</a></span>
                     </div>
+
                     {{#if error}}
                     <p style="color: red; text-align:center;font-size: 19px">{{error}}</p>
                     {{/if}}
@@ -115,7 +116,10 @@
                 <h1>Full stack developer</h1>
                 <h2>¿Tenés un emprendimiento?</h2>
                 <h2>Creemos tu sitio web desde 0</h2>
+                {{#if isUser}}
                 <a class="module_1_contacto" href="https://wa.me/+541132850072" alt="phone">Contáctame</a>
+                {{/if}}
+                <a class="module_1_contacto" href="/register" alt="phone">Registrate y Contáctame</a>
             </div>
         </section>
         <section class="module_2">

@@ -54,7 +54,7 @@ Delete: Podes borrar un usario dentro del menu mobile cuando ya estes logeado.
 
 Middlewares aplicados:
 
-En /login,/reset-password, /change-password y en /delete-password que son las unicas vistas que un usuario no registrado no deberia poder ver
+En /login,/reset-password y en /delete-password que son las unicas vistas que un usuario no registrado no deberia poder ver
 
 (Hay 3 tipos de usuarios: El usuario registrado, el no registrado y el Admin)
 

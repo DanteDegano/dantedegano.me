@@ -568,6 +568,7 @@ body {
   z-index: 5;
   background-color: #6e40c9;
   color: white;
+  text-align: center;
 }
 .module_1_contacto:hover {
   color: white;
