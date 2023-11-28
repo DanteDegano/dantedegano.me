@@ -1,5 +1,5 @@
 
-Para mi: Acceso a BD de mongo online: https://cloud.mongodb.com/
+Para mi: Acceso a BD de mongo online: https://cloud.mongodb.com/v2/65481d9edcedf2724701f834#/host/replicaSet/654820209d16c83a2c8b35c5
 Proximas tareas, subir al hostiger y arreglar el formulario de reset password.
 Borrar pedidos desde el admin
 

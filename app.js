@@ -230,6 +230,32 @@ app.post('/enviar-correo', async (req, res) => {
     });
   });
 
+
+app.post('/borrar-ticket', isAuthenticated, async (req, res) => {
+    try {
+        const { ticketId } = req.body;
+
+        // Find the ticket in the database
+        const foundTicket = await Ticket.findById(ticketId);
+
+        if (foundTicket) {
+            // Delete the ticket
+            await Ticket.deleteOne({ _id: ticketId });
+
+            // Respond with JSON indicating success
+            res.json({ success: true, message: 'Ticket deleted successfully' });
+        } else {
+            // Respond with JSON indicating failure
+            res.status(404).json({ success: false, message: 'Ticket not found' });
+        }
+    } catch (error) {
+        console.error(error);
+        // Respond with JSON indicating server error
+        res.status(500).json({ success: false, message: 'Error in the server' });
+    }
+});
+
+
 function verificarContraseñaForUser(inputPassword, storedPassword) {
     return inputPassword === storedPassword;
 }
@@ -242,6 +268,13 @@ app.post('/register', async (req, res) => {
     const { username, email } = req.body;
 
     try {
+
+        const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+
+        if (existingUser) {
+            return res.render('register', { error: 'Nombre de usuario o correo electrónico ya en uso' });
+        }
+
         const generatedPassword = uuidv4();
 
         const hashedPassword = await bcrypt.hash(generatedPassword, 10);
@@ -312,7 +345,7 @@ app.get('/reset-password', isAuthenticated, async (req, res) => {
     }
 });
 
-app.post('/reset-password',isAuthenticated, async (req, res) => {
+app.post('/reset-password', isAuthenticated, async (req, res) => {
     const { token, newPassword } = req.body;
 
     const user = await User.findOne({
@@ -321,18 +354,18 @@ app.post('/reset-password',isAuthenticated, async (req, res) => {
     });
 
     if (user) {
+        // Actualizar la contraseña solo si cumple con los criterios
         user.password = newPassword;
         user.resetPasswordToken = undefined;
         user.resetPasswordExpires = undefined;
 
         await user.save();
 
-        res.render('home', { message: 'Your password has been successfully reset. You can now log in with your new password.' });
+        return res.render('home', { message: 'Tu contraseña ha sido restablecida exitosamente. Ahora puedes iniciar sesión con tu nueva contraseña.' });
     } else {
-        res.render('reset-password', { error: 'Invalid or expired token. Please try again.' });
+        return res.render('reset-password', { error: 'Token inválido o vencido. Por favor, inténtalo de nuevo.' });
     }
 });
-
 // Borra usuario de la base de datos
 
 app.get('/delete-account', isAuthenticated, (req, res) => {
