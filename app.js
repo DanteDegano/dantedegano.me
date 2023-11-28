@@ -231,30 +231,24 @@ app.post('/enviar-correo', async (req, res) => {
   });
 
 
-app.post('/borrar-ticket', isAuthenticated, async (req, res) => {
-    try {
-        const { ticketId } = req.body;
+app.post('/responder-correo', async (req, res) => {
+const { email, mensaje } = req.body;
 
-        // Find the ticket in the database
-        const foundTicket = await Ticket.findById(ticketId);
+const mailOptions = {
+    from: 'dantedegano@gmail.com',
+    to: `${email}`,
+    subject: 'Respuesta solicitada:',
+    text: `${mensaje}`
+};
 
-        if (foundTicket) {
-            // Delete the ticket
-            await Ticket.deleteOne({ _id: ticketId });
-
-            // Respond with JSON indicating success
-            res.json({ success: true, message: 'Ticket deleted successfully' });
-        } else {
-            // Respond with JSON indicating failure
-            res.status(404).json({ success: false, message: 'Ticket not found' });
-        }
-    } catch (error) {
-        console.error(error);
-        // Respond with JSON indicating server error
-        res.status(500).json({ success: false, message: 'Error in the server' });
+// Envía el correo electrónico
+transporter.sendMail(mailOptions, async (error) => {
+    if (error) {
+    return res.status(500).send(error.toString());
     }
+    res.redirect('/login')
 });
-
+})
 
 function verificarContraseñaForUser(inputPassword, storedPassword) {
     return inputPassword === storedPassword;

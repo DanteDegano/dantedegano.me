@@ -1320,8 +1320,8 @@ body {
 .module_7 ul li {
   list-style-type: none;
   color: #b6bfc7;
-  width: 250px;
-  height: 300px;
+  width: 500px;
+  height: 620px;
   border: 4px solid #30363c;
   border-radius: 5px;
   overflow: hidden;
@@ -1338,11 +1338,6 @@ body {
   z-index: 2;
 }
 .module_7 ul li span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
   position: relative;
   z-index: 2;
 }
@@ -1352,13 +1347,21 @@ body {
   height: 100%;
   position: relative;
 }
+.module_7_ticket_mensaje {
+  display: flex;
+  position: relative;
+  height: 250px;
+  overflow: scroll;
+  z-index: 2;
+  overflow-x: hidden;
+}
 .module_7_ticket_background {
   position: absolute;
   top: 0;
   left: 0;
   margin: auto;
-  width: 316px;
-  height: 290px;
+  width: 510px;
+  height: 373px;
   z-index: 1;
 }
 .module_7_ticket_background path {
@@ -1374,7 +1377,47 @@ body {
 .module_7_ticket_cross:hover path {
   fill: #6e40c9;
 }
+.module_7_ticket_respuesta {
+  margin-top: 10px;
+  width: 100%;
+}
+.module_7_ticket_respuesta_user {
+  width: 100%;
+  margin-bottom: 10px;
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  color: #ffa500;
+  outline: none;
+}
+.module_7_ticket_respuesta_text {
+  width: 100%;
+  height: 150px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #21262c;
+  color: white;
+  border: none;
+  outline: none;
+}
+.module_7_ticket_respuesta_submit {
+  width: 100%;
+  height: 40px;
+  border-radius: 8px;
+  background-color: #6e40c9;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+.module_7_ticket_respuesta_submit:hover {
+  animation: hover-btn-module1 0.5s forwards;
+}
 
+@media only screen and (max-width: 1024px) {
+  .module_7 ul li {
+    height: auto;
+  }
+}
 /**
  * Swiper 9.1.0
  * Most modern mobile touch slider and framework with hardware accelerated transitions
