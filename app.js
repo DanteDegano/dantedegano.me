@@ -11,20 +11,20 @@ const { v4: uuidv4 } = require('uuid');
 
 dotenv.config()
 
-  const ADMIN_MAIL = process.env.ADMIN_MAIL
-  const ADMIN_MAIL_PASS = process.env.ADMIN_MAIL_PASS
+const ADMIN_MAIL = process.env.ADMIN_MAIL
+const ADMIN_MAIL_PASS = process.env.ADMIN_MAIL_PASS
 
-    //token de validacion 
-  const token = crypto.randomBytes(20).toString('hex');
+//token de validacion 
+const token = crypto.randomBytes(20).toString('hex');
 
-  // Configuración de nodemailer
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: ADMIN_MAIL,
-      pass: ADMIN_MAIL_PASS,
-    }
-  });
+// Configuración de nodemailer
+const transporter = nodemailer.createTransport({
+service: 'gmail',
+auth: {
+    user: ADMIN_MAIL,
+    pass: ADMIN_MAIL_PASS,
+}
+});
 
 const app = express()
 
@@ -115,6 +115,12 @@ const User = mongoose.model('User', {
     email: String,
     resetPasswordToken: String,
     resetPasswordExpires: Date,
+});
+
+const UserBackup = mongoose.model('UserBackup', {
+    username: String,
+    password: String,
+    email: String,
 });
 
 const pedidoSchema = new mongoose.Schema({
@@ -273,11 +279,16 @@ app.post('/register', async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(generatedPassword, 10);
 
+        // Guardar en User
         const newUser = new User({ username, password: hashedPassword, email });
         await newUser.save();
 
+        // Guardar en UserBackup
+        const newUserBackup = new UserBackup({ username, password: hashedPassword, email });
+        await newUserBackup.save();
+
         const mailOptions = {
-            from: 'dantedegano@gmail.com',
+            from: 'noreply@gmail.com',
             to: email,
             subject: 'Bienvenido a la aplicación',
             html: `Bienvenido, ${username}! Su contraseña temporal es: "${hashedPassword}" Recuerde cambiarla después de iniciar sesión.`,

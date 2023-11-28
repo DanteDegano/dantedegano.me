@@ -49,8 +49,7 @@ CRUD aplicado:
 Create: Puedo crear nuevos usuarios., manda un mail a tu correo y generando un token podes cambiar la contraseña.
 Read: Se utiliza para iniciar sesion desde la misma Home.
 Update: Puedo cambiar contraseña de usuarios existentes, manda un mail a tu correo y generando un token podes cambiar la contraseña.
-Delete: Podes borrar un usario dentro del menu mobile cuando ya estes logeado.
-
+Delete: Podes borrar un usuario cuando ya estes logeado. (Mentira, porque no quiero perder los datos de mis clientes, asique borro tengo un UserBackup del cual no se borra nada)
 
 Middlewares aplicados:
 
@@ -58,9 +57,9 @@ En /login,/reset-password y en /delete-password que son las unicas vistas que un
 
 (Hay 3 tipos de usuarios: El usuario registrado, el no registrado y el Admin)
 
-El usuario no registrado no puede mandar formulario pero si puede contactarse por whatsApp (Obteniendo su telefono)
-El usuario Registrado puede contactarse por whatsApp y tmb puede enviar el formulario. (Obteniendo mail y telefono aunque borre el user)
-El admin por ahora no puede hacer nada, pero puede ver una seccion donde van a cargar los pedidos como si fuesen tickets. (en el futuro podra responder desde ahi)
+El usuario no registrado no puede mandar formulario pero si puede contactarse por whatsApp.
+El usuario Registrado puede contactarse por whatsApp y tmb puede enviar el formulario.
+El admin puede ver una seccion donde van a cargar los pedidos como si fuesen tickets y responder desde ahi.
 
 
 
